@@ -1,0 +1,31 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+enum ReservationStatus {
+  YENI
+  ARANACAK
+  TAMAMLANDI
+  IPTAL
+}
+
+model ReservationRequest {
+  id          String            @id @default(cuid())
+  guestName   String
+  phone       String?
+  email       String?
+  checkIn     DateTime?
+  checkOut    DateTime?
+  guestCount  Int?
+  roomType    String?
+  notes       String?
+  transcript  String?
+  status      ReservationStatus @default(YENI)
+  createdAt   DateTime          @default(now())
+  updatedAt   DateTime          @updatedAt
+}
