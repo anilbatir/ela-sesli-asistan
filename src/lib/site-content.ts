@@ -20,9 +20,14 @@ export interface LocalizedContent {
   demoCta: string;
   languageToggleLabel: string;
   hero: {
+    brandTitle: string;
     title: string;
     subtitle: string;
     cta: string;
+  };
+  bento: {
+    statValue: string;
+    statLabel: string;
   };
   sectorSection: {
     title: string;
@@ -73,10 +78,15 @@ export const SITE_CONTENT: Record<Language, LocalizedContent> = {
     demoCta: "Demo dinle",
     languageToggleLabel: "EN",
     hero: {
-      title: "Ela hiç telefonu kaçırmaz.",
+      brandTitle: "Ela Sesli Asistan",
+      title: "Hiç telefonu kaçırmaz.",
       subtitle:
         "İnsan gibi konuşur. Ekibinizin zamanını size geri verir. Otel, restoran, klinik gibi işletmeler için 7/24 çalışan sesli rezervasyon asistanı.",
-      cta: "Demo dinle",
+      cta: "Hemen Dene",
+    },
+    bento: {
+      statValue: "7/24",
+      statLabel: "Kesintisiz, yorulmadan, her aramada aynı enerjiyle.",
     },
     sectorSection: {
       title: "Sektörünüzü seçin, Ela'yı dinleyin",
@@ -147,10 +157,15 @@ export const SITE_CONTENT: Record<Language, LocalizedContent> = {
     demoCta: "Listen to demo",
     languageToggleLabel: "TR",
     hero: {
-      title: "Ela never misses a call.",
+      brandTitle: "Ela Voice Assistant",
+      title: "Never misses a call.",
       subtitle:
         "Speaks like a human. Gives your team's time back. A voice reservation assistant that works 24/7 for hotels, restaurants, clinics and more.",
-      cta: "Listen to demo",
+      cta: "Try now",
+    },
+    bento: {
+      statValue: "24/7",
+      statLabel: "Always on — same energy on every single call.",
     },
     sectorSection: {
       title: "Pick your industry, hear Ela",

@@ -62,7 +62,7 @@ function ChatMockupInner({
   return (
     <div
       className={cn(
-        "w-full max-w-sm rounded-3xl border border-white/60 bg-white/70 shadow-2xl backdrop-blur-xl",
+        "w-full max-w-sm rounded-3xl border border-white/50 bg-white/70 shadow-2xl shadow-indigo-500/10 backdrop-blur-xl",
         className
       )}
     >
@@ -103,7 +103,7 @@ function ChatBubble({
   return (
     <div className={cn("flex items-end gap-2", isAssistant ? "justify-start" : "justify-end")}>
       {isAssistant && (
-        <span className="mb-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-blue-400 to-violet-400 text-[10px] font-semibold text-white">
+        <span className="mb-1 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-indigo-500 to-cyan-400 text-[10px] font-semibold text-white">
           E
         </span>
       )}
@@ -111,8 +111,8 @@ function ChatBubble({
         className={cn(
           "max-w-[75%] rounded-2xl px-4 py-2.5 text-sm leading-snug",
           isAssistant
-            ? "rounded-bl-sm bg-blue-500 text-white"
-            : "rounded-br-sm bg-neutral-100 text-neutral-800"
+            ? "rounded-bl-sm bg-gradient-to-r from-indigo-600 to-indigo-500 text-white"
+            : "rounded-br-sm bg-slate-100 text-slate-700"
         )}
       >
         <span>{typed}</span>

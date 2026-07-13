@@ -5,14 +5,18 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --color-sand: #f7f3ec;
+  /* UI/UX Pro Max palette: icy slate ground, charcoal ink, indigo + cyan accents */
+  --color-sand: #f1f5f9;
   --color-white: #ffffff;
-  --color-seagreen-pale: #8fb8ae;
-  --color-navy: #2c4a52;
-  --color-seagreen-dark: #3f6e62;
-  --color-coral: #e8a87c;
+  --color-seagreen-pale: #67e8f9;
+  --color-navy: #1e293b;
+  --color-seagreen-dark: #64748b;
+  --color-coral: #4f46e5;
+  --color-indigo: #4f46e5;
+  --color-cyan: #06b6d4;
+  --color-ice: #f8fafc;
 
-  --background: var(--color-white);
+  --background: var(--color-ice);
   --foreground: var(--color-navy);
   --card: var(--color-white);
   --card-foreground: var(--color-navy);
@@ -20,16 +24,16 @@
   --popover-foreground: var(--color-navy);
   --primary: var(--color-coral);
   --primary-foreground: var(--color-white);
-  --secondary: color-mix(in oklch, var(--color-seagreen-pale) 22%, var(--color-white));
+  --secondary: color-mix(in oklch, var(--color-indigo) 8%, var(--color-white));
   --secondary-foreground: var(--color-navy);
   --muted: color-mix(in oklch, var(--color-sand) 60%, var(--color-white));
   --muted-foreground: var(--color-seagreen-dark);
-  --accent: color-mix(in oklch, var(--color-seagreen-pale) 18%, var(--color-white));
+  --accent: color-mix(in oklch, var(--color-indigo) 8%, var(--color-white));
   --accent-foreground: var(--color-navy);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: color-mix(in oklch, var(--color-navy) 12%, transparent);
-  --input: color-mix(in oklch, var(--color-navy) 15%, transparent);
-  --ring: color-mix(in oklch, var(--color-coral) 60%, var(--color-navy) 10%);
+  --border: color-mix(in oklch, var(--color-navy) 10%, transparent);
+  --input: color-mix(in oklch, var(--color-navy) 14%, transparent);
+  --ring: color-mix(in oklch, var(--color-indigo) 70%, var(--color-cyan) 30%);
   --chart-1: var(--color-coral);
   --chart-2: var(--color-seagreen-dark);
   --chart-3: var(--color-seagreen-pale);
@@ -53,6 +57,9 @@
   --color-navy: var(--color-navy);
   --color-seagreen-dark: var(--color-seagreen-dark);
   --color-coral: var(--color-coral);
+  --color-indigo: var(--color-indigo);
+  --color-cyan: var(--color-cyan);
+  --color-ice: var(--color-ice);
   --font-serif: var(--font-fraunces);
   --font-heading: var(--font-fraunces);
   --font-sans: var(--font-inter);
@@ -194,7 +201,7 @@
 
 @layer components {
   .bg-dot-grid {
-    background-image: radial-gradient(#e5e7eb 1px, transparent 1px);
+    background-image: radial-gradient(#e2e8f0 1px, transparent 1px);
     background-size: 24px 24px;
   }
 
@@ -219,7 +226,7 @@
     z-index: 1;
     border-radius: inherit;
     padding: 1px;
-    background: linear-gradient(120deg, #60a5fa, #a78bfa, #f472b6);
+    background: linear-gradient(120deg, #4f46e5, #06b6d4, #67e8f9);
     -webkit-mask:
       linear-gradient(#000 0 0) content-box,
       linear-gradient(#000 0 0);
