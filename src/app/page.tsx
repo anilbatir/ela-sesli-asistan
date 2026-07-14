@@ -297,12 +297,16 @@ export default function Home() {
     { scope: root }
   );
 
-  /* ---------------- 3D tilt (sektör kartları) ---------------- */
+  /* ---------------- 3D tilt + spotlight (sektör kartları) ---------------- */
   const tilt = (e: React.MouseEvent<HTMLButtonElement>) => {
     const card = e.currentTarget;
     const rect = card.getBoundingClientRect();
-    const px = (e.clientX - rect.left) / rect.width - 0.5;
-    const py = (e.clientY - rect.top) / rect.height - 0.5;
+    const relX = e.clientX - rect.left;
+    const relY = e.clientY - rect.top;
+    card.style.setProperty("--mx", `${relX}px`);
+    card.style.setProperty("--my", `${relY}px`);
+    const px = relX / rect.width - 0.5;
+    const py = relY / rect.height - 0.5;
     gsap.to(card, {
       rotateY: px * 14,
       rotateX: py * -14,
@@ -311,8 +315,25 @@ export default function Home() {
       ease: "power2.out",
     });
   };
+  const enterCard = (e: React.MouseEvent<HTMLButtonElement>) => {
+    const card = e.currentTarget;
+    gsap.to(card, { scale: 1.03, duration: 0.45, ease: "power3.out" });
+    const icon = card.querySelector(".sector-icon");
+    if (icon) {
+      gsap.fromTo(
+        icon,
+        { scale: 1, y: 0, rotate: 0 },
+        { scale: 1.18, y: -6, rotate: -8, duration: 0.45, ease: "back.out(2.8)" }
+      );
+    }
+  };
   const untilt = (e: React.MouseEvent<HTMLButtonElement>) => {
-    gsap.to(e.currentTarget, { rotateY: 0, rotateX: 0, duration: 0.9, ease: "elastic.out(1, 0.45)" });
+    const card = e.currentTarget;
+    gsap.to(card, { rotateY: 0, rotateX: 0, scale: 1, duration: 0.9, ease: "elastic.out(1, 0.45)" });
+    const icon = card.querySelector(".sector-icon");
+    if (icon) {
+      gsap.to(icon, { scale: 1, y: 0, rotate: 0, duration: 0.9, ease: "elastic.out(1, 0.4)" });
+    }
   };
 
   /* ---------------- Ses ---------------- */
@@ -512,33 +533,61 @@ export default function Home() {
                 key={sector.id}
                 type="button"
                 onClick={() => playSector(sector.id, sector.audio)}
+                onMouseEnter={enterCard}
                 onMouseMove={tilt}
                 onMouseLeave={untilt}
-                className={`sector-card group flex cursor-pointer flex-col items-center gap-4 rounded-3xl border px-5 py-10 text-center shadow-sm shadow-violet-500/5 backdrop-blur-md transition-colors duration-300 will-change-transform ${
+                className={`sector-card group relative flex cursor-pointer flex-col items-center gap-4 overflow-hidden rounded-3xl border px-5 py-10 text-center shadow-sm shadow-violet-500/5 backdrop-blur-md transition-[border-color,background-color,box-shadow] duration-300 will-change-transform hover:shadow-xl hover:shadow-violet-500/15 ${
                   active
                     ? "border-violet-300 bg-violet-50/80"
                     : "border-slate-200/80 bg-white/60 hover:border-violet-300/70 hover:bg-white/90"
                 }`}
               >
-                <span className="flex h-14 w-14 items-center justify-center rounded-2xl border border-slate-200/80 bg-gradient-to-br from-violet-50 to-cyan-50">
+                {/* İmleci takip eden spotlight */}
+                <span
+                  aria-hidden
+                  className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                  style={{
+                    background:
+                      "radial-gradient(240px circle at var(--mx, 50%) var(--my, 50%), rgba(139, 92, 246, 0.14), transparent 65%)",
+                  }}
+                />
+                {/* Parlama süpürmesi */}
+                <span
+                  aria-hidden
+                  className="pointer-events-none absolute top-0 bottom-0 left-0 w-1/3 -translate-x-[250%] -skew-x-12 bg-gradient-to-r from-transparent via-white/70 to-transparent transition-transform duration-700 ease-out group-hover:translate-x-[350%]"
+                />
+
+                <span className="sector-icon relative flex h-14 w-14 items-center justify-center rounded-2xl border border-slate-200/80 bg-gradient-to-br from-violet-50 to-cyan-50 transition-shadow duration-300 group-hover:shadow-lg group-hover:shadow-violet-500/25">
                   <Icon
                     className={`h-7 w-7 transition-colors duration-300 ${active ? "text-violet-600" : "text-slate-500 group-hover:text-violet-600"}`}
                     strokeWidth={1.5}
                   />
                 </span>
-                <span className="text-sm font-semibold text-slate-700">{t.sectors[sector.id]}</span>
+                <span className="relative text-sm font-semibold text-slate-700 transition-all duration-300 group-hover:tracking-wide group-hover:text-slate-900">
+                  {t.sectors[sector.id]}
+                </span>
                 {playing ? (
-                  <span className="flex h-5 items-center gap-1">
+                  <span className="relative flex h-5 items-center gap-1">
                     {[0, 1, 2, 3, 4].map((bar) => (
                       <span
                         key={bar}
-                        className="wave-bar h-4 w-0.5 origin-center rounded-full bg-gradient-to-t from-violet-500 to-cyan-400"
+                        className="animate-wave w-0.5 rounded-full bg-gradient-to-t from-violet-500 to-cyan-400"
+                        style={{ animationDelay: `${bar * 0.12}s` }}
                       />
                     ))}
                   </span>
                 ) : (
-                  <span className="text-xs text-slate-400">
+                  <span className="relative flex h-5 items-center gap-1.5 text-xs text-slate-400 transition-colors duration-300 group-hover:text-violet-600">
                     {unavailable === sector.id ? t.comingSoon : t.play}
+                    <span className="flex items-center gap-0.5 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                      {[0, 1, 2].map((bar) => (
+                        <span
+                          key={bar}
+                          className="animate-wave w-0.5 rounded-full bg-gradient-to-t from-violet-500 to-cyan-400"
+                          style={{ animationDelay: `${bar * 0.15}s` }}
+                        />
+                      ))}
+                    </span>
                   </span>
                 )}
               </button>
