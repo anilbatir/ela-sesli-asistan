@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Fraunces, Inter } from "next/font/google";
 import "./globals.css";
-import MeshBackground from "@/components/landing/MeshBackground";
 import { cn } from "@/lib/utils";
 
 const fraunces = Fraunces({
@@ -31,10 +30,7 @@ export default function RootLayout({
       lang="tr"
       className={cn("h-full", "antialiased", fraunces.variable, inter.variable)}
     >
-      <body className="relative flex min-h-full flex-col">
-        <MeshBackground />
-        {children}
-      </body>
+      <body className="relative flex min-h-full flex-col">{children}</body>
     </html>
   );
 }
