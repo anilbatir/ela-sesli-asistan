@@ -345,25 +345,25 @@ export default function Home() {
   /* ================================================================ */
 
   return (
-    <div ref={root} className="relative min-h-screen overflow-x-clip bg-[#07080F] text-slate-100 selection:bg-violet-500/40">
+    <div ref={root} className="relative min-h-screen overflow-x-clip bg-[#FBFBFE] text-slate-900 selection:bg-violet-200">
       {/* Okuma ilerlemesi */}
       <div className="progress-bar fixed top-0 left-0 z-50 h-[3px] w-full origin-left scale-x-0 bg-gradient-to-r from-violet-500 via-fuchsia-400 to-cyan-400" />
 
       {/* Yaşayan aura + doku */}
       <div aria-hidden className="orb-layer pointer-events-none fixed inset-0 z-0">
-        <div className="orb-a absolute -top-[15%] -left-[10%] h-[48rem] w-[48rem] rounded-[45%] bg-violet-600/25 blur-[130px]" />
-        <div className="orb-b absolute top-[45%] -right-[15%] h-[44rem] w-[44rem] rounded-[45%] bg-cyan-500/20 blur-[130px]" />
-        <div className="absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.045)_1px,transparent_1px)] [background-size:32px_32px]" />
+        <div className="orb-a absolute -top-[15%] -left-[10%] h-[48rem] w-[48rem] rounded-[45%] bg-violet-300/40 blur-[130px]" />
+        <div className="orb-b absolute top-[45%] -right-[15%] h-[44rem] w-[44rem] rounded-[45%] bg-cyan-300/35 blur-[130px]" />
+        <div className="absolute inset-0 bg-[radial-gradient(rgba(15,23,42,0.06)_1px,transparent_1px)] [background-size:32px_32px]" />
       </div>
 
       {/* ---------- Header ---------- */}
-      <header className="site-header fixed top-4 left-1/2 z-40 flex w-[min(70rem,calc(100%-2rem))] -translate-x-1/2 items-center justify-between rounded-full border border-white/10 bg-white/5 px-6 py-3 backdrop-blur-xl">
+      <header className="site-header fixed top-4 left-1/2 z-40 flex w-[min(70rem,calc(100%-2rem))] -translate-x-1/2 items-center justify-between rounded-full border border-slate-200/70 bg-white/60 px-6 py-3 shadow-lg shadow-violet-500/5 backdrop-blur-xl">
         <a href="#" className="text-2xl font-semibold tracking-tight">
-          <span className="bg-gradient-to-r from-violet-400 to-cyan-300 bg-clip-text text-transparent">ela</span>
+          <span className="bg-gradient-to-r from-violet-600 to-cyan-500 bg-clip-text text-transparent">ela</span>
         </a>
-        <nav className="hidden items-center gap-9 text-sm text-slate-400 md:flex">
+        <nav className="hidden items-center gap-9 text-sm text-slate-500 md:flex">
           {t.nav.map((item) => (
-            <a key={item.href} href={item.href} className="transition-colors duration-200 hover:text-white">
+            <a key={item.href} href={item.href} className="transition-colors duration-200 hover:text-slate-900">
               {item.label}
             </a>
           ))}
@@ -372,13 +372,13 @@ export default function Home() {
           <button
             type="button"
             onClick={() => setLang(lang === "tr" ? "en" : "tr")}
-            className="rounded-full px-3 py-1.5 text-sm font-medium text-slate-400 transition-colors duration-200 hover:bg-white/10 hover:text-white"
+            className="rounded-full px-3 py-1.5 text-sm font-medium text-slate-500 transition-colors duration-200 hover:bg-slate-100 hover:text-slate-900"
           >
             {t.langToggle}
           </button>
           <a
             href="#iletisim"
-            className="group inline-flex items-center gap-1.5 rounded-full bg-white px-5 py-2 text-sm font-semibold text-slate-900 transition-transform duration-300 hover:scale-105"
+            className="group inline-flex items-center gap-1.5 rounded-full bg-slate-900 px-5 py-2 text-sm font-semibold text-white transition-transform duration-300 hover:scale-105"
           >
             {t.cta}
             <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
@@ -393,7 +393,7 @@ export default function Home() {
             <span key={`${lang}-${i}`} className="block overflow-hidden pb-2">
               <span className="hero-line-inner block">
                 {i === 1 ? (
-                  <span className="bg-gradient-to-r from-violet-400 via-fuchsia-300 to-cyan-300 bg-clip-text text-transparent">
+                  <span className="bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-500 bg-clip-text text-transparent">
                     {line}
                   </span>
                 ) : (
@@ -413,7 +413,7 @@ export default function Home() {
           ))}
         </div>
 
-        <p className="hero-sub mt-8 max-w-xl text-balance text-lg leading-relaxed text-slate-400 sm:text-xl">
+        <p className="hero-sub mt-8 max-w-xl text-balance text-lg leading-relaxed text-slate-500 sm:text-xl">
           {t.heroSub}
         </p>
 
@@ -428,19 +428,19 @@ export default function Home() {
           </a>
         </div>
 
-        <div className="hero-scroll absolute bottom-10 flex flex-col items-center gap-2 text-xs tracking-[0.3em] text-slate-500 uppercase">
+        <div className="hero-scroll absolute bottom-10 flex flex-col items-center gap-2 text-xs tracking-[0.3em] text-slate-400 uppercase">
           {t.scroll}
           <ArrowDown className="h-4 w-4 animate-bounce" />
         </div>
       </section>
 
       {/* ---------- Marquee ---------- */}
-      <div className="relative z-10 overflow-hidden border-y border-white/10 bg-white/[0.03] py-5 backdrop-blur-sm">
+      <div className="relative z-10 overflow-hidden border-y border-slate-200/70 bg-white/50 py-5 backdrop-blur-sm">
         <div className="marquee-track flex w-max items-center gap-12 whitespace-nowrap">
           {[0, 1].map((dup) => (
             <div key={dup} className="flex items-center gap-12">
               {t.marquee.map((item) => (
-                <span key={`${dup}-${item}`} className="flex items-center gap-12 text-lg font-medium text-slate-400">
+                <span key={`${dup}-${item}`} className="flex items-center gap-12 text-lg font-medium text-slate-500">
                   {item}
                   <span className="h-1.5 w-1.5 rounded-full bg-gradient-to-r from-violet-400 to-cyan-400" />
                 </span>
@@ -452,7 +452,7 @@ export default function Home() {
 
       {/* ---------- Hikaye: pinlenmiş akış ---------- */}
       <section id="hikaye" className="story-pin relative z-10 h-screen">
-        <div className="absolute top-24 left-1/2 -translate-x-1/2 text-sm font-medium tracking-[0.35em] text-violet-400 uppercase">
+        <div className="absolute top-24 left-1/2 -translate-x-1/2 text-sm font-medium tracking-[0.35em] text-violet-600 uppercase">
           {t.storyKicker}
         </div>
         {t.features.map((feature, i) => {
@@ -462,18 +462,18 @@ export default function Home() {
               key={`${lang}-${feature.title}`}
               className="story-panel absolute inset-0 flex flex-col items-center justify-center px-6 text-center"
             >
-              <span className="mb-9 flex h-20 w-20 items-center justify-center rounded-3xl border border-white/10 bg-white/5 backdrop-blur-md">
-                <Icon className="h-9 w-9 text-violet-300" strokeWidth={1.4} />
+              <span className="mb-9 flex h-20 w-20 items-center justify-center rounded-3xl border border-slate-200/80 bg-white/70 shadow-lg shadow-violet-500/10 backdrop-blur-md">
+                <Icon className="h-9 w-9 text-violet-600" strokeWidth={1.4} />
               </span>
               <h2 className="max-w-4xl text-balance font-heading text-4xl font-medium tracking-tight sm:text-6xl lg:text-7xl">
                 {feature.title}
               </h2>
-              <p className="mt-7 max-w-xl text-balance text-lg leading-relaxed text-slate-400">{feature.desc}</p>
+              <p className="mt-7 max-w-xl text-balance text-lg leading-relaxed text-slate-500">{feature.desc}</p>
               <div className="mt-10 flex gap-2.5">
                 {t.features.map((_, dot) => (
                   <span
                     key={dot}
-                    className={`h-1.5 rounded-full transition-all ${dot === i ? "w-8 bg-violet-400" : "w-1.5 bg-white/20"}`}
+                    className={`h-1.5 rounded-full transition-all ${dot === i ? "w-8 bg-violet-500" : "w-1.5 bg-slate-300"}`}
                   />
                 ))}
               </div>
@@ -484,10 +484,10 @@ export default function Home() {
 
       {/* ---------- Dev istatistik ---------- */}
       <section className="stat-scene relative z-10 flex flex-col items-center justify-center py-40">
-        <div className="giant-stat bg-gradient-to-b from-white via-violet-200 to-violet-500/40 bg-clip-text text-center font-heading text-[24vw] leading-none font-semibold text-transparent sm:text-[18vw]">
+        <div className="giant-stat bg-gradient-to-b from-slate-900 via-violet-600 to-cyan-500 bg-clip-text text-center font-heading text-[24vw] leading-none font-semibold text-transparent sm:text-[18vw]">
           {t.statValue}
         </div>
-        <p className="reveal-block mt-4 text-lg tracking-widest text-slate-400 uppercase">{t.statLabel}</p>
+        <p className="reveal-block mt-4 text-lg tracking-widest text-slate-500 uppercase">{t.statLabel}</p>
       </section>
 
       {/* ---------- Sektörler ---------- */}
@@ -495,11 +495,11 @@ export default function Home() {
         <div className="reveal-block mb-16 text-center">
           <h2 className="font-heading text-4xl font-medium tracking-tight sm:text-6xl">
             {t.sectorsTitle}{" "}
-            <span className="bg-gradient-to-r from-violet-400 to-cyan-300 bg-clip-text text-transparent">
+            <span className="bg-gradient-to-r from-violet-600 to-cyan-500 bg-clip-text text-transparent">
               {t.sectorsTitleAccent}
             </span>
           </h2>
-          <p className="mt-5 text-lg text-slate-400">{t.sectorsSub}</p>
+          <p className="mt-5 text-lg text-slate-500">{t.sectorsSub}</p>
         </div>
 
         <div className="sector-grid grid grid-cols-2 gap-5 sm:grid-cols-3 [perspective:1200px]">
@@ -514,30 +514,30 @@ export default function Home() {
                 onClick={() => playSector(sector.id, sector.audio)}
                 onMouseMove={tilt}
                 onMouseLeave={untilt}
-                className={`sector-card group flex cursor-pointer flex-col items-center gap-4 rounded-3xl border px-5 py-10 text-center backdrop-blur-md transition-colors duration-300 will-change-transform ${
+                className={`sector-card group flex cursor-pointer flex-col items-center gap-4 rounded-3xl border px-5 py-10 text-center shadow-sm shadow-violet-500/5 backdrop-blur-md transition-colors duration-300 will-change-transform ${
                   active
-                    ? "border-violet-400/40 bg-violet-500/10"
-                    : "border-white/10 bg-white/[0.04] hover:border-violet-400/30 hover:bg-white/[0.07]"
+                    ? "border-violet-300 bg-violet-50/80"
+                    : "border-slate-200/80 bg-white/60 hover:border-violet-300/70 hover:bg-white/90"
                 }`}
               >
-                <span className="flex h-14 w-14 items-center justify-center rounded-2xl border border-white/10 bg-white/5">
+                <span className="flex h-14 w-14 items-center justify-center rounded-2xl border border-slate-200/80 bg-gradient-to-br from-violet-50 to-cyan-50">
                   <Icon
-                    className={`h-7 w-7 transition-colors duration-300 ${active ? "text-violet-300" : "text-slate-400 group-hover:text-violet-300"}`}
+                    className={`h-7 w-7 transition-colors duration-300 ${active ? "text-violet-600" : "text-slate-500 group-hover:text-violet-600"}`}
                     strokeWidth={1.5}
                   />
                 </span>
-                <span className="text-sm font-semibold text-slate-200">{t.sectors[sector.id]}</span>
+                <span className="text-sm font-semibold text-slate-700">{t.sectors[sector.id]}</span>
                 {playing ? (
                   <span className="flex h-5 items-center gap-1">
                     {[0, 1, 2, 3, 4].map((bar) => (
                       <span
                         key={bar}
-                        className="wave-bar h-4 w-0.5 origin-center rounded-full bg-gradient-to-t from-violet-400 to-cyan-300"
+                        className="wave-bar h-4 w-0.5 origin-center rounded-full bg-gradient-to-t from-violet-500 to-cyan-400"
                       />
                     ))}
                   </span>
                 ) : (
-                  <span className="text-xs text-slate-500">
+                  <span className="text-xs text-slate-400">
                     {unavailable === sector.id ? t.comingSoon : t.play}
                   </span>
                 )}
@@ -549,14 +549,14 @@ export default function Home() {
 
       {/* ---------- İletişim ---------- */}
       <section id="iletisim" className="relative z-10 mx-auto max-w-2xl px-6 pb-36">
-        <div className="reveal-block rounded-[2.5rem] border border-white/10 bg-white/[0.05] p-10 backdrop-blur-xl sm:p-14">
+        <div className="reveal-block rounded-[2.5rem] border border-slate-200/80 bg-white/60 p-10 shadow-xl shadow-violet-500/5 backdrop-blur-xl sm:p-14">
           <div className="mb-10 text-center">
             <h2 className="font-heading text-3xl font-medium tracking-tight sm:text-5xl">{t.formTitle}</h2>
-            <p className="mt-4 text-slate-400">{t.formSub}</p>
+            <p className="mt-4 text-slate-500">{t.formSub}</p>
           </div>
 
           {submitted ? (
-            <p className="rounded-2xl border border-violet-400/20 bg-violet-500/10 px-5 py-5 text-center text-slate-200">
+            <p className="rounded-2xl border border-violet-200 bg-violet-50 px-5 py-5 text-center text-slate-700">
               {t.fSuccess}
             </p>
           ) : (
@@ -567,32 +567,32 @@ export default function Home() {
               }}
               className="flex flex-col gap-5"
             >
-              <label className="flex flex-col gap-2 text-sm font-medium text-slate-300">
+              <label className="flex flex-col gap-2 text-sm font-medium text-slate-600">
                 {t.fBusiness}
                 <input
                   required
                   type="text"
                   placeholder={t.fBusinessPh}
-                  className="rounded-2xl border border-white/10 bg-white/5 px-5 py-3.5 text-base font-normal text-white outline-none transition-all duration-300 placeholder:text-slate-600 focus:border-violet-400/50 focus:bg-white/[0.08] focus:ring-4 focus:ring-violet-500/10"
+                  className="rounded-2xl border border-slate-200 bg-white/80 px-5 py-3.5 text-base font-normal text-slate-800 outline-none transition-all duration-300 placeholder:text-slate-400 focus:border-violet-400 focus:bg-white focus:ring-4 focus:ring-violet-500/10"
                 />
               </label>
               <div className="grid gap-5 sm:grid-cols-2">
-                <label className="flex flex-col gap-2 text-sm font-medium text-slate-300">
+                <label className="flex flex-col gap-2 text-sm font-medium text-slate-600">
                   {t.fPhone}
                   <input
                     required
                     type="tel"
                     placeholder={t.fPhonePh}
-                    className="rounded-2xl border border-white/10 bg-white/5 px-5 py-3.5 text-base font-normal text-white outline-none transition-all duration-300 placeholder:text-slate-600 focus:border-violet-400/50 focus:bg-white/[0.08] focus:ring-4 focus:ring-violet-500/10"
+                    className="rounded-2xl border border-slate-200 bg-white/80 px-5 py-3.5 text-base font-normal text-slate-800 outline-none transition-all duration-300 placeholder:text-slate-400 focus:border-violet-400 focus:bg-white focus:ring-4 focus:ring-violet-500/10"
                   />
                 </label>
-                <label className="flex flex-col gap-2 text-sm font-medium text-slate-300">
+                <label className="flex flex-col gap-2 text-sm font-medium text-slate-600">
                   {t.fEmail}
                   <input
                     required
                     type="email"
                     placeholder={t.fEmailPh}
-                    className="rounded-2xl border border-white/10 bg-white/5 px-5 py-3.5 text-base font-normal text-white outline-none transition-all duration-300 placeholder:text-slate-600 focus:border-violet-400/50 focus:bg-white/[0.08] focus:ring-4 focus:ring-violet-500/10"
+                    className="rounded-2xl border border-slate-200 bg-white/80 px-5 py-3.5 text-base font-normal text-slate-800 outline-none transition-all duration-300 placeholder:text-slate-400 focus:border-violet-400 focus:bg-white focus:ring-4 focus:ring-violet-500/10"
                   />
                 </label>
               </div>
@@ -610,10 +610,10 @@ export default function Home() {
       </section>
 
       {/* ---------- Footer ---------- */}
-      <footer className="relative z-10 border-t border-white/10">
+      <footer className="relative z-10 border-t border-slate-200/80">
         <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-6 py-10 text-sm text-slate-500 sm:flex-row">
           <span className="text-lg font-semibold">
-            <span className="bg-gradient-to-r from-violet-400 to-cyan-300 bg-clip-text text-transparent">ela</span>
+            <span className="bg-gradient-to-r from-violet-600 to-cyan-500 bg-clip-text text-transparent">ela</span>
           </span>
           <span>{t.footer}</span>
           <span>© {new Date().getFullYear()} Ela</span>
