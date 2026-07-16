@@ -539,7 +539,7 @@ export default function Home() {
           <span className="absolute top-[14%] left-[3%] h-9 w-9 rounded-full bg-cyan-300/40" />
         </div>
 
-        <div className="mx-auto grid w-full max-w-7xl items-center gap-16 lg:grid-cols-[1.05fr_1fr] lg:gap-10">
+        <div className="mx-auto grid w-full max-w-7xl items-center gap-16 lg:grid-cols-[1.05fr_1fr] lg:gap-6">
           {/* Sol: dönen özellik başlığı */}
           <div className="relative z-10 flex flex-col items-start text-left">
             <div className="hero-left-item min-h-[2.3em] sm:min-h-[2.6em] lg:min-h-[3.3em]">
@@ -590,7 +590,7 @@ export default function Home() {
           </div>
 
           {/* Sağ: Ela'nın dairesel görseli + soru çubuğu */}
-          <div className="hero-photo relative mx-auto aspect-square w-full max-w-[22rem] sm:max-w-[26rem] lg:max-w-[30rem]">
+          <div className="hero-photo relative mx-auto aspect-square w-full max-w-[22rem] sm:max-w-[26rem] lg:mx-0 lg:max-w-[34rem]">
             {/* Fareyi takip eden yankı halkaları */}
             <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
               <span className="hero-ring hero-ring-1 absolute inset-[-7%] rounded-full border border-violet-400/35 bg-gradient-to-br from-violet-300/12 to-fuchsia-300/6 backdrop-blur-[1px]" />
