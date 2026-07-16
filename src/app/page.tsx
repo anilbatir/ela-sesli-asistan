@@ -190,6 +190,7 @@ export default function Home() {
   /* ---------------- Hero: dönen başlık & soru çubuğu ---------------- */
   const [featureIndex, setFeatureIndex] = useState(0);
   const [questionIndex, setQuestionIndex] = useState(0);
+  const [typedQuestion, setTypedQuestion] = useState("");
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -198,12 +199,33 @@ export default function Home() {
     return () => clearInterval(timer);
   }, [lang]);
 
+  /* Soru çubuğu: harf harf daktilo efekti */
   useEffect(() => {
-    const timer = setInterval(() => {
-      setQuestionIndex((i) => (i + 1) % COPY[lang].heroQuestions.length);
-    }, 2800);
-    return () => clearInterval(timer);
-  }, [lang]);
+    const questions = COPY[lang].heroQuestions;
+    const current = questions[questionIndex % questions.length];
+    const typeSpeed = 42;
+    const pauseAfterTyped = 1700;
+    let charIndex = 0;
+    let timeoutId: ReturnType<typeof setTimeout>;
+
+    const typeNextChar = () => {
+      charIndex += 1;
+      setTypedQuestion(current.slice(0, charIndex));
+      if (charIndex < current.length) {
+        timeoutId = setTimeout(typeNextChar, typeSpeed);
+      } else {
+        timeoutId = setTimeout(() => {
+          setQuestionIndex((i) => (i + 1) % questions.length);
+        }, pauseAfterTyped);
+      }
+    };
+
+    timeoutId = setTimeout(() => {
+      setTypedQuestion("");
+      typeNextChar();
+    }, 0);
+    return () => clearTimeout(timeoutId);
+  }, [lang, questionIndex]);
 
   /* ---------------- GSAP orkestrasyonu ---------------- */
   useGSAP(
@@ -551,15 +573,13 @@ export default function Home() {
               />
             </div>
 
-            {/* Dönen müşteri sorusu çubuğu */}
-            <div className="hero-chatbar absolute top-[4%] left-1/2 w-[88%] -translate-x-1/2 rounded-2xl border border-white/70 bg-white/85 px-4 py-3.5 shadow-xl shadow-violet-900/10 backdrop-blur-xl sm:px-5 sm:py-4">
+            {/* Dönen müşteri sorusu çubuğu — dairenin içinde, merkezin biraz altında */}
+            <div className="hero-chatbar absolute top-[58%] left-1/2 w-[76%] -translate-x-1/2 -translate-y-1/2 rounded-2xl border border-white/70 bg-white/90 px-4 py-3.5 shadow-xl shadow-violet-900/15 backdrop-blur-xl sm:px-5 sm:py-4">
               <div className="flex items-center gap-3">
-                <div className="min-h-[2.4em] flex-1 overflow-hidden">
-                  <p
-                    key={`${lang}-${questionIndex}`}
-                    className="animate-fade-in-up line-clamp-2 text-[13px] leading-snug font-medium text-slate-700 sm:text-sm"
-                  >
-                    {t.heroQuestions[questionIndex]}
+                <div className="min-h-[2.4em] flex-1">
+                  <p className="line-clamp-2 text-[13px] leading-snug font-medium text-slate-700 sm:text-sm">
+                    {typedQuestion}
+                    <span className="ml-0.5 inline-block h-[1em] w-[2px] translate-y-[0.15em] animate-pulse bg-violet-500 align-middle" />
                   </p>
                 </div>
                 <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-violet-600 to-fuchsia-600 text-white shadow-lg shadow-violet-600/30 sm:h-9 sm:w-9">
