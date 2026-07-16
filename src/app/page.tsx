@@ -545,7 +545,7 @@ export default function Home() {
             <div className="hero-left-item min-h-[2.3em] sm:min-h-[2.6em] lg:min-h-[3.3em]">
               <h1
                 key={`${lang}-${featureIndex}`}
-                className="hero-rotator animate-fade-in-up font-heading text-4xl leading-[1.08] font-medium tracking-tight text-slate-900 sm:text-5xl lg:text-[3.35rem]"
+                className="hero-rotator animate-fade-in-up bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-500 bg-clip-text font-heading text-4xl leading-[1.08] font-medium tracking-tight text-transparent sm:text-5xl lg:text-[3.35rem]"
               >
                 {t.features[featureIndex].title}
               </h1>
