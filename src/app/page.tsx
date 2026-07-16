@@ -270,6 +270,26 @@ export default function Home() {
         y: gsap.quickTo(`.hero-ring-${i + 1}`, "y", { duration: 0.55 + i * 0.35, ease: "power3.out" }),
       }));
 
+      /* Nokta kümesi: fareyi hafif gecikmeli takip eden soluk uydu grubu */
+      const CURSOR_DOTS = [
+        { dx: -12, dy: -16, duration: 0.3 },
+        { dx: 18, dy: 8, duration: 0.45 },
+        { dx: -6, dy: 20, duration: 0.6 },
+        { dx: 14, dy: -12, duration: 0.75 },
+        { dx: -20, dy: 4, duration: 0.9 },
+      ];
+      const heroSectionEl = document.querySelector<HTMLElement>(".hero-section");
+      const cursorDotSetters = CURSOR_DOTS.map((cfg, i) => ({
+        x: gsap.quickTo(`.cursor-dot-${i + 1}`, "x", { duration: cfg.duration, ease: "power3.out" }),
+        y: gsap.quickTo(`.cursor-dot-${i + 1}`, "y", { duration: cfg.duration, ease: "power3.out" }),
+        dx: cfg.dx,
+        dy: cfg.dy,
+      }));
+      if (heroSectionEl) {
+        const initialRect = heroSectionEl.getBoundingClientRect();
+        gsap.set(".cursor-dot", { x: initialRect.width / 2, y: initialRect.height * 0.4 });
+      }
+
       const onMove = (e: MouseEvent) => {
         const nx = e.clientX / window.innerWidth - 0.5;
         const ny = e.clientY / window.innerHeight - 0.5;
@@ -288,6 +308,15 @@ export default function Home() {
           x(nx * RING_STRENGTH[i]);
           y(ny * RING_STRENGTH[i] * 0.8);
         });
+        if (heroSectionEl) {
+          const rect = heroSectionEl.getBoundingClientRect();
+          const localX = e.clientX - rect.left;
+          const localY = e.clientY - rect.top;
+          cursorDotSetters.forEach(({ x, y, dx, dy }) => {
+            x(localX + dx);
+            y(localY + dy);
+          });
+        }
       };
       window.addEventListener("mousemove", onMove);
 
@@ -529,14 +558,13 @@ export default function Home() {
           aria-hidden
           className="pointer-events-none absolute inset-0 bg-[radial-gradient(rgba(139,92,246,0.08)_1px,transparent_1px)] [background-size:28px_28px]"
         />
-        {/* Dağılmış dekoratif küreler */}
+        {/* Fareyi takip eden soluk nokta kümesi */}
         <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 hidden overflow-hidden sm:block">
-          <span className="absolute top-[8%] right-[6%] h-16 w-16 rounded-full bg-violet-500/50 blur-[2px]" />
-          <span className="absolute top-[22%] right-[2%] h-10 w-10 rounded-full bg-fuchsia-400/40" />
-          <span className="absolute bottom-[16%] right-[10%] h-24 w-24 rounded-full bg-fuchsia-400/30 blur-[6px]" />
-          <span className="absolute right-[3%] bottom-[6%] h-14 w-14 rounded-full bg-violet-500/35 blur-[2px]" />
-          <span className="absolute bottom-[10%] left-[4%] h-20 w-20 rounded-full bg-violet-300/40 blur-[4px]" />
-          <span className="absolute top-[14%] left-[3%] h-9 w-9 rounded-full bg-cyan-300/40" />
+          <span className="cursor-dot cursor-dot-1 absolute top-0 left-0 h-4 w-4 rounded-full bg-violet-400/20 blur-[1px]" />
+          <span className="cursor-dot cursor-dot-2 absolute top-0 left-0 h-6 w-6 rounded-full bg-fuchsia-300/15 blur-[2px]" />
+          <span className="cursor-dot cursor-dot-3 absolute top-0 left-0 h-2.5 w-2.5 rounded-full bg-cyan-300/20" />
+          <span className="cursor-dot cursor-dot-4 absolute top-0 left-0 h-7 w-7 rounded-full bg-violet-300/12 blur-[3px]" />
+          <span className="cursor-dot cursor-dot-5 absolute top-0 left-0 h-3.5 w-3.5 rounded-full bg-fuchsia-400/18 blur-[1px]" />
         </div>
 
         <div className="mx-auto grid w-full max-w-7xl items-center gap-16 lg:grid-cols-[1.05fr_1fr] lg:gap-6">
