@@ -466,7 +466,8 @@ export default function Home() {
           },
         })
         .to(".gear-track-left", { yPercent: -gearSteps * 100, ease: "none", duration: 1 }, 0)
-        .to(".gear-track-right", { yPercent: 0, ease: "none", duration: 1 }, 0);
+        .to(".gear-track-right", { yPercent: 0, ease: "none", duration: 1 }, 0)
+        .to(".gear-circle", { rotation: 360, ease: "none", duration: 1 }, 0);
 
       /* Dev istatistik: scroll ile ölçeklenen sahne */
       gsap.fromTo(
@@ -822,20 +823,22 @@ export default function Home() {
 
         <div className="mx-auto grid h-full max-w-6xl grid-cols-1 px-6 md:grid-cols-2 md:gap-10">
           {/* Sol: dairesel görseller — normal yönde (aşağı) kayar */}
-          <div className="gear-track-left relative hidden h-full md:block">
+          <div className="gear-track-left relative hidden h-screen md:block">
             {t.gearSteps.map((step, i) => (
               <div
                 key={`left-${lang}-${step.title}`}
                 className="absolute inset-x-0 flex h-full items-center justify-center"
                 style={{ top: `${i * 100}%` }}
               >
-                <GearVisual step={i} />
+                <span className="gear-circle inline-flex">
+                  <GearVisual step={i} />
+                </span>
               </div>
             ))}
           </div>
 
           {/* Sağ: başlık + açıklama — ters yönde (yukarı) kayar */}
-          <div className="gear-track-right relative h-full">
+          <div className="gear-track-right relative h-screen">
             {t.gearSteps.map((step, i) => (
               <div
                 key={`right-${lang}-${step.title}`}
