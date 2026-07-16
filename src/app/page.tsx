@@ -571,7 +571,7 @@ export default function Home() {
 
           {/* Sağ: Ela'nın dairesel görseli + soru çubuğu */}
           <div className="hero-photo relative mx-auto aspect-square w-full max-w-[22rem] sm:max-w-[26rem] lg:max-w-[30rem]">
-            <div className="absolute inset-0 overflow-hidden rounded-full shadow-2xl shadow-violet-900/15 ring-1 ring-white/70">
+            <div className="liquid-photo-mask absolute inset-0 overflow-hidden shadow-2xl shadow-violet-900/15 ring-1 ring-white/70">
               <Image
                 src="/ela.jpg"
                 alt="Ela"

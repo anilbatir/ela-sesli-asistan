@@ -199,6 +199,25 @@
   }
 }
 
+@keyframes liquid-blob {
+  0%,
+  100% {
+    border-radius: 50% 50% 50% 50% / 50% 50% 50% 50%;
+  }
+  20% {
+    border-radius: 45% 55% 53% 47% / 56% 48% 52% 44%;
+  }
+  40% {
+    border-radius: 56% 44% 47% 53% / 44% 55% 45% 56%;
+  }
+  60% {
+    border-radius: 47% 53% 44% 56% / 53% 44% 57% 47%;
+  }
+  80% {
+    border-radius: 53% 47% 56% 44% / 47% 53% 44% 57%;
+  }
+}
+
 @layer components {
   .bg-dot-grid {
     background-image: radial-gradient(#e2e8f0 1px, transparent 1px);
@@ -213,6 +232,11 @@
     animation:
       blob-morph 9s ease-in-out infinite,
       blob-jitter 0.7s ease-in-out infinite;
+  }
+
+  .liquid-photo-mask {
+    animation: liquid-blob 16s ease-in-out infinite;
+    will-change: border-radius;
   }
 
   .laser-border {
