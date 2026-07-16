@@ -18,6 +18,7 @@ import {
   UtensilsCrossed,
   type LucideIcon,
 } from "lucide-react";
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 if (typeof window !== "undefined") {
@@ -540,10 +541,14 @@ export default function Home() {
           {/* Sağ: Ela'nın dairesel görseli + soru çubuğu */}
           <div className="hero-photo relative mx-auto aspect-square w-full max-w-[22rem] sm:max-w-[26rem] lg:max-w-[30rem]">
             <div className="absolute inset-0 overflow-hidden rounded-full shadow-2xl shadow-violet-900/15 ring-1 ring-white/70">
-              {/* TODO: Ela'nın fotoğrafı gelince <img src="/ela-portrait.jpg" alt="Ela" className="h-full w-full object-cover" /> ile değiştir */}
-              <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-violet-300 via-fuchsia-200 to-cyan-100">
-                <span className="font-heading text-6xl font-medium text-white/80 sm:text-7xl">ela</span>
-              </div>
+              <Image
+                src="/ela.jpg"
+                alt="Ela"
+                fill
+                priority
+                sizes="(min-width: 1024px) 30rem, (min-width: 640px) 26rem, 22rem"
+                className="object-cover"
+              />
             </div>
 
             {/* Dönen müşteri sorusu çubuğu */}
