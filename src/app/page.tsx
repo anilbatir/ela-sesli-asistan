@@ -7,13 +7,15 @@ import {
   ArrowDown,
   ArrowRight,
   Building2,
-  Clock,
+  Camera,
   Home as HomeIcon,
-  Mic,
-  PhoneCall,
+  KeyRound,
+  MessageCircle,
+  Phone,
   Scale,
   Scissors,
   Send,
+  Sparkles,
   Stethoscope,
   UtensilsCrossed,
   type LucideIcon,
@@ -52,6 +54,24 @@ const COPY = {
     scroll: "Kaydır",
     marquee: ["7/24 kesintisiz", "İnsan gibi doğal", "Anında cevap", "Sıfır kaçan arama", "Türkçe & İngilizce"],
     storyKicker: "Neden Ela?",
+    gearSteps: [
+      {
+        title: "Karşınızda Ela",
+        desc: "Şirketinizin 7/24 kesintisiz çalışan, hem sesli hem yazılı iletişim kurabilen akıllı yapay zeka asistanı. Müşterilerinizi insan kalitesinde karşılar, soruları saniyeler içinde yanıtlar.",
+      },
+      {
+        title: "Akıllı Rezervasyon Yönetimi",
+        desc: "Otel aramalarında boş odaları ve tarihleri anında sorgular, rezervasyonları tamamlar. Restoranlar için masa uygunluğunu kontrol eder ve yer ayırtır.",
+      },
+      {
+        title: "Satış ve Ön Görüşme Asistanı",
+        desc: "İnşaat projelerinizdeki daire tiplerini (2+1, 3+1) ve güncel fiyatları müşteriye aktarır. Satış ekibinizin araması için potansiyel müşterilerden telefon numaralarını ve taleplerini toplar.",
+      },
+      {
+        title: "Her Kanalda, Her An Aktif",
+        desc: "Ela sadece telefon aramalarında değil; WhatsApp, Instagram ve sosyal medya platformlarınızda da yazılı olarak müşterilerinizle buluşur. Tüm kanalları tek merkezden yönetir.",
+      },
+    ],
     features: [
       {
         title: "Hiçbir aramayı kaçırmaz",
@@ -115,6 +135,24 @@ const COPY = {
     scroll: "Scroll",
     marquee: ["24/7 always on", "Naturally human", "Instant answers", "Zero missed calls", "Turkish & English"],
     storyKicker: "Why Ela?",
+    gearSteps: [
+      {
+        title: "Meet Ela",
+        desc: "Your company's AI assistant that works around the clock, communicating by both voice and text. It welcomes your customers with human-level quality and answers questions within seconds.",
+      },
+      {
+        title: "Smart Reservation Management",
+        desc: "Instantly checks room availability and dates for hotel calls and completes reservations. For restaurants, it checks table availability and books a spot.",
+      },
+      {
+        title: "Sales & Pre-Screening Assistant",
+        desc: "Shares apartment types (2+1, 3+1) and current prices for your construction projects. Collects phone numbers and requests from potential customers for your sales team to call.",
+      },
+      {
+        title: "Active on Every Channel, All the Time",
+        desc: "Ela doesn't just handle phone calls — she also meets your customers in writing on WhatsApp, Instagram, and social media. All channels managed from one place.",
+      },
+    ],
     features: [
       {
         title: "Never misses a call",
@@ -169,7 +207,56 @@ const SECTOR_LIST: { id: string; icon: LucideIcon; audio: string }[] = [
   { id: "realestate", icon: HomeIcon, audio: "/demo-audio/realestate.mp3" },
 ];
 
-const FEATURE_ICONS: LucideIcon[] = [PhoneCall, Mic, Clock];
+const GEAR_STEPS_COUNT = COPY.tr.gearSteps.length;
+
+/* Çark bölümü: her adım için sol sütundaki dairesel görsel */
+function GearVisual({ step }: { step: number }) {
+  const baseCircle =
+    "relative flex h-56 w-56 items-center justify-center rounded-full border border-slate-200/80 bg-white/70 shadow-xl shadow-violet-500/10 backdrop-blur-md sm:h-64 sm:w-64";
+  const satellite =
+    "absolute flex h-10 w-10 items-center justify-center rounded-full border border-slate-200/80 bg-white shadow-lg shadow-violet-500/10";
+
+  if (step === 0) {
+    return (
+      <div className="relative flex h-56 w-56 items-center justify-center sm:h-64 sm:w-64">
+        <span className="animate-glow-pulse absolute inset-0 rounded-full bg-gradient-to-br from-violet-400/60 to-fuchsia-400/50" />
+        <span className="absolute inset-4 rounded-full border border-white/80 bg-white/70 shadow-2xl shadow-violet-500/20 backdrop-blur-md" />
+        <Sparkles className="relative h-16 w-16 text-violet-600" strokeWidth={1.3} />
+      </div>
+    );
+  }
+  if (step === 1) {
+    return (
+      <div className={baseCircle}>
+        <span className="absolute inset-0 rounded-full bg-gradient-to-br from-violet-200/40 to-transparent" />
+        <KeyRound className="relative h-14 w-14 text-violet-600" strokeWidth={1.4} />
+      </div>
+    );
+  }
+  if (step === 2) {
+    return (
+      <div className={baseCircle}>
+        <span className="absolute inset-0 rounded-full bg-gradient-to-br from-cyan-200/40 to-transparent" />
+        <Building2 className="relative h-14 w-14 text-cyan-600" strokeWidth={1.4} />
+        <span className={`${satellite} -right-2 -bottom-2`}>
+          <MessageCircle className="h-4.5 w-4.5 text-fuchsia-500" strokeWidth={1.6} />
+        </span>
+      </div>
+    );
+  }
+  return (
+    <div className={baseCircle}>
+      <span className="absolute inset-0 rounded-full bg-gradient-to-br from-fuchsia-200/40 to-transparent" />
+      <Phone className="relative h-14 w-14 text-violet-600" strokeWidth={1.4} />
+      <span className={`${satellite} top-3 -right-3`}>
+        <MessageCircle className="h-4 w-4 text-emerald-500" strokeWidth={1.6} />
+      </span>
+      <span className={`${satellite} bottom-3 -left-3`}>
+        <Camera className="h-4 w-4 text-pink-500" strokeWidth={1.6} />
+      </span>
+    </div>
+  );
+}
 
 /* ------------------------------------------------------------------ */
 /*  Sayfa                                                              */
@@ -359,25 +446,27 @@ export default function Home() {
       /* Marquee: sonsuz akış */
       gsap.to(".marquee-track", { xPercent: -50, duration: 24, repeat: -1, ease: "none" });
 
-      /* Hikaye: pinlenmiş bölüm, scrub ile panel geçişleri */
-      const panels = gsap.utils.toArray<HTMLElement>(".story-panel");
-      gsap.set(panels.slice(1), { autoAlpha: 0, y: 90 });
+      /* Hikaye: çark bölümü — sol görsel akış aşağı, sağ metin akış yukarı zıt yönde kayar */
+      const gearSteps = GEAR_STEPS_COUNT - 1;
+      gsap.set(".gear-track-right", { yPercent: -gearSteps * 100 });
 
-      const story = gsap.timeline({
-        scrollTrigger: {
-          trigger: ".story-pin",
-          start: "top top",
-          end: "+=250%",
-          pin: true,
-          scrub: 0.8,
-        },
-      });
-      panels.forEach((panel, i) => {
-        if (i === 0) return;
-        story
-          .to(panels[i - 1], { autoAlpha: 0, y: -90, duration: 1, ease: "power2.in" })
-          .to(panel, { autoAlpha: 1, y: 0, duration: 1, ease: "power2.out" }, "<0.35");
-      });
+      gsap
+        .timeline({
+          scrollTrigger: {
+            trigger: ".gear-pin",
+            start: "top top",
+            end: `+=${gearSteps * 100}%`,
+            pin: true,
+            scrub: 0.6,
+            snap: {
+              snapTo: 1 / gearSteps,
+              duration: { min: 0.3, max: 0.6 },
+              ease: "power2.inOut",
+            },
+          },
+        })
+        .to(".gear-track-left", { yPercent: -gearSteps * 100, ease: "none", duration: 1 }, 0)
+        .to(".gear-track-right", { yPercent: 0, ease: "none", duration: 1 }, 0);
 
       /* Dev istatistik: scroll ile ölçeklenen sahne */
       gsap.fromTo(
@@ -702,36 +791,79 @@ export default function Home() {
         </div>
       </div>
 
-      {/* ---------- Hikaye: pinlenmiş akış ---------- */}
-      <section id="hikaye" className="story-pin relative z-10 h-screen">
-        <div className="absolute top-24 left-1/2 -translate-x-1/2 text-sm font-medium tracking-[0.35em] text-violet-600 uppercase">
+      {/* ---------- Hikaye: çark bölümü ---------- */}
+      <section id="hikaye" className="gear-pin relative z-10 h-screen overflow-hidden">
+        {/* Açık lila zemin */}
+        <div
+          aria-hidden
+          className="absolute inset-0 -z-10 bg-gradient-to-b from-white via-violet-50 to-fuchsia-50/70"
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -top-24 -left-24 -z-10 h-96 w-96 rounded-full bg-violet-300/25 blur-[110px]"
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -right-24 -bottom-24 -z-10 h-96 w-96 rounded-full bg-fuchsia-300/25 blur-[110px]"
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(rgba(139,92,246,0.08)_1px,transparent_1px)] [background-size:28px_28px]"
+        />
+        {/* Ortadaki ayraç çizgisi */}
+        <div
+          aria-hidden
+          className="pointer-events-none absolute top-0 bottom-0 left-1/2 hidden w-px -translate-x-1/2 bg-gradient-to-b from-transparent via-violet-300/50 to-transparent md:block"
+        />
+
+        <div className="absolute top-16 left-1/2 -translate-x-1/2 text-sm font-medium tracking-[0.35em] text-violet-600 uppercase">
           {t.storyKicker}
         </div>
-        {t.features.map((feature, i) => {
-          const Icon = FEATURE_ICONS[i];
-          return (
-            <div
-              key={`${lang}-${feature.title}`}
-              className="story-panel absolute inset-0 flex flex-col items-center justify-center px-6 text-center"
-            >
-              <span className="mb-9 flex h-20 w-20 items-center justify-center rounded-3xl border border-slate-200/80 bg-white/70 shadow-lg shadow-violet-500/10 backdrop-blur-md">
-                <Icon className="h-9 w-9 text-violet-600" strokeWidth={1.4} />
-              </span>
-              <h2 className="max-w-4xl text-balance font-heading text-4xl font-medium tracking-tight sm:text-6xl lg:text-7xl">
-                {feature.title}
-              </h2>
-              <p className="mt-7 max-w-xl text-balance text-lg leading-relaxed text-slate-500">{feature.desc}</p>
-              <div className="mt-10 flex gap-2.5">
-                {t.features.map((_, dot) => (
-                  <span
-                    key={dot}
-                    className={`h-1.5 rounded-full transition-all ${dot === i ? "w-8 bg-violet-500" : "w-1.5 bg-slate-300"}`}
-                  />
-                ))}
+
+        <div className="mx-auto grid h-full max-w-6xl grid-cols-1 px-6 md:grid-cols-2 md:gap-10">
+          {/* Sol: dairesel görseller — normal yönde (aşağı) kayar */}
+          <div className="gear-track-left relative hidden h-full md:block">
+            {t.gearSteps.map((step, i) => (
+              <div
+                key={`left-${lang}-${step.title}`}
+                className="absolute inset-x-0 flex h-full items-center justify-center"
+                style={{ top: `${i * 100}%` }}
+              >
+                <GearVisual step={i} />
               </div>
-            </div>
-          );
-        })}
+            ))}
+          </div>
+
+          {/* Sağ: başlık + açıklama — ters yönde (yukarı) kayar */}
+          <div className="gear-track-right relative h-full">
+            {t.gearSteps.map((step, i) => (
+              <div
+                key={`right-${lang}-${step.title}`}
+                className="absolute inset-x-0 flex h-full flex-col items-center justify-center px-6 text-center md:items-start md:px-4 md:text-left"
+                style={{ top: `${(GEAR_STEPS_COUNT - 1 - i) * 100}%` }}
+              >
+                <span className="mb-5 flex justify-center md:hidden">
+                  <GearVisual step={i} />
+                </span>
+                <span className="mb-4 text-xs font-semibold tracking-[0.3em] text-violet-500 uppercase">
+                  {String(i + 1).padStart(2, "0")} / {String(GEAR_STEPS_COUNT).padStart(2, "0")}
+                </span>
+                <h2 className="max-w-lg text-balance font-heading text-4xl font-medium tracking-tight sm:text-5xl lg:text-6xl">
+                  {step.title}
+                </h2>
+                <p className="mt-6 max-w-md text-balance text-lg leading-relaxed text-slate-500">{step.desc}</p>
+                <div className="mt-9 flex justify-center gap-2.5 md:justify-start">
+                  {t.gearSteps.map((_, dot) => (
+                    <span
+                      key={dot}
+                      className={`h-1.5 rounded-full transition-all ${dot === i ? "w-8 bg-violet-500" : "w-1.5 bg-slate-300"}`}
+                    />
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </section>
 
       {/* ---------- Dev istatistik ---------- */}
