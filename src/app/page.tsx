@@ -171,6 +171,18 @@ const SECTOR_LIST: { id: string; icon: LucideIcon; audio: string }[] = [
 
 const FEATURE_ICONS: LucideIcon[] = [PhoneCall, Mic, Clock];
 
+/* Ela'nın fotoğrafını çevreleyen konfeti noktaları — sabit, deterministik dağılım */
+const CONFETTI_PALETTE = ["bg-violet-500", "bg-fuchsia-500", "bg-cyan-400", "bg-violet-300", "bg-fuchsia-300"];
+const CONFETTI_COUNT = 26;
+const CONFETTI_DOTS = Array.from({ length: CONFETTI_COUNT }, (_, i) => ({
+  angle: (i / CONFETTI_COUNT) * 360 + ((i * 47) % 17),
+  radius: 34 + ((i * 29) % 19),
+  size: 2 + ((i * 13) % 4),
+  dash: i % 3 === 0,
+  color: CONFETTI_PALETTE[i % CONFETTI_PALETTE.length],
+  baseOpacity: 0.22 + ((i * 7) % 10) / 40,
+}));
+
 /* ------------------------------------------------------------------ */
 /*  Sayfa                                                              */
 /* ------------------------------------------------------------------ */
@@ -180,6 +192,7 @@ export default function Home() {
   const t = COPY[lang];
 
   const root = useRef<HTMLDivElement>(null);
+  const confettiDotsRef = useRef<(HTMLSpanElement | null)[]>([]);
 
   const [activeSector, setActiveSector] = useState<string | null>(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -270,25 +283,8 @@ export default function Home() {
         y: gsap.quickTo(`.hero-ring-${i + 1}`, "y", { duration: 0.55 + i * 0.35, ease: "power3.out" }),
       }));
 
-      /* Nokta kümesi: fareyi hafif gecikmeli takip eden soluk uydu grubu */
-      const CURSOR_DOTS = [
-        { dx: -12, dy: -16, duration: 0.3 },
-        { dx: 18, dy: 8, duration: 0.45 },
-        { dx: -6, dy: 20, duration: 0.6 },
-        { dx: 14, dy: -12, duration: 0.75 },
-        { dx: -20, dy: 4, duration: 0.9 },
-      ];
-      const heroSectionEl = document.querySelector<HTMLElement>(".hero-section");
-      const cursorDotSetters = CURSOR_DOTS.map((cfg, i) => ({
-        x: gsap.quickTo(`.cursor-dot-${i + 1}`, "x", { duration: cfg.duration, ease: "power3.out" }),
-        y: gsap.quickTo(`.cursor-dot-${i + 1}`, "y", { duration: cfg.duration, ease: "power3.out" }),
-        dx: cfg.dx,
-        dy: cfg.dy,
-      }));
-      if (heroSectionEl) {
-        const initialRect = heroSectionEl.getBoundingClientRect();
-        gsap.set(".cursor-dot", { x: initialRect.width / 2, y: initialRect.height * 0.4 });
-      }
+      /* Konfeti noktaları: sabit dururlar, sadece farenin olduğu taraf yoğunlaşır */
+      const photoEl = document.querySelector<HTMLElement>(".hero-photo");
 
       const onMove = (e: MouseEvent) => {
         const nx = e.clientX / window.innerWidth - 0.5;
@@ -308,21 +304,31 @@ export default function Home() {
           x(nx * RING_STRENGTH[i]);
           y(ny * RING_STRENGTH[i] * 0.8);
         });
-        if (heroSectionEl) {
-          const rect = heroSectionEl.getBoundingClientRect();
-          const localX = e.clientX - rect.left;
-          const localY = e.clientY - rect.top;
-          cursorDotSetters.forEach(({ x, y, dx, dy }) => {
-            x(localX + dx);
-            y(localY + dy);
+        if (photoEl) {
+          const prect = photoEl.getBoundingClientRect();
+          const cx = prect.left + prect.width / 2;
+          const cy = prect.top + prect.height / 2;
+          const mouseAngle = Math.atan2(e.clientY - cy, e.clientX - cx);
+          confettiDotsRef.current.forEach((el, i) => {
+            if (!el) return;
+            const dot = CONFETTI_DOTS[i];
+            const dotAngleRad = (dot.angle * Math.PI) / 180;
+            const diff = Math.atan2(Math.sin(mouseAngle - dotAngleRad), Math.cos(mouseAngle - dotAngleRad));
+            const closeness = Math.cos(diff);
+            const factor = 0.35 + 0.95 * ((closeness + 1) / 2);
+            el.style.opacity = String(Math.min(1, dot.baseOpacity * factor));
           });
         }
       };
       window.addEventListener("mousemove", onMove);
 
-      /* Fare ekrandan çıkınca halkalar yay efektiyle merkeze döner */
+      /* Fare ekrandan çıkınca halkalar merkeze döner, konfeti noktaları nötr yoğunluğa iner */
       const onLeaveWindow = () => {
         gsap.to(".hero-ring", { x: 0, y: 0, duration: 1.3, ease: "elastic.out(1, 0.4)" });
+        confettiDotsRef.current.forEach((el, i) => {
+          if (!el) return;
+          el.style.opacity = String(CONFETTI_DOTS[i].baseOpacity);
+        });
       };
       document.addEventListener("mouseleave", onLeaveWindow);
 
@@ -558,14 +564,6 @@ export default function Home() {
           aria-hidden
           className="pointer-events-none absolute inset-0 bg-[radial-gradient(rgba(139,92,246,0.08)_1px,transparent_1px)] [background-size:28px_28px]"
         />
-        {/* Fareyi takip eden soluk nokta kümesi */}
-        <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 hidden overflow-hidden sm:block">
-          <span className="cursor-dot cursor-dot-1 absolute top-0 left-0 h-4 w-4 rounded-full bg-violet-400/20 blur-[1px]" />
-          <span className="cursor-dot cursor-dot-2 absolute top-0 left-0 h-6 w-6 rounded-full bg-fuchsia-300/15 blur-[2px]" />
-          <span className="cursor-dot cursor-dot-3 absolute top-0 left-0 h-2.5 w-2.5 rounded-full bg-cyan-300/20" />
-          <span className="cursor-dot cursor-dot-4 absolute top-0 left-0 h-7 w-7 rounded-full bg-violet-300/12 blur-[3px]" />
-          <span className="cursor-dot cursor-dot-5 absolute top-0 left-0 h-3.5 w-3.5 rounded-full bg-fuchsia-400/18 blur-[1px]" />
-        </div>
 
         <div className="mx-auto grid w-full max-w-7xl items-center gap-16 lg:grid-cols-[1.05fr_1fr] lg:gap-6">
           {/* Sol: dönen özellik başlığı */}
@@ -625,6 +623,32 @@ export default function Home() {
               <span className="hero-ring hero-ring-2 absolute inset-[-16%] rounded-full border border-fuchsia-400/24 bg-fuchsia-300/6 backdrop-blur-[1px]" />
               <span className="hero-ring hero-ring-3 absolute inset-[-27%] rounded-full border border-violet-300/16" />
               <span className="hero-ring hero-ring-4 absolute inset-[-40%] rounded-full border border-fuchsia-300/10" />
+            </div>
+
+            {/* Konfeti noktaları: dairenin etrafında sabit dururlar, farenin olduğu taraf yoğunlaşır */}
+            <div aria-hidden className="pointer-events-none absolute -inset-[42%] -z-10 hidden sm:block">
+              {CONFETTI_DOTS.map((dot, i) => {
+                const rad = (dot.angle * Math.PI) / 180;
+                const left = 50 + dot.radius * Math.cos(rad);
+                const top = 50 + dot.radius * Math.sin(rad);
+                return (
+                  <span
+                    key={i}
+                    ref={(el) => {
+                      confettiDotsRef.current[i] = el;
+                    }}
+                    className={`absolute rounded-full transition-opacity duration-500 ease-out ${dot.color}`}
+                    style={{
+                      left: `${left}%`,
+                      top: `${top}%`,
+                      width: `${dot.size}px`,
+                      height: dot.dash ? `${dot.size * 2.4}px` : `${dot.size}px`,
+                      opacity: dot.baseOpacity,
+                      transform: `translate(-50%, -50%) rotate(${dot.angle + 90}deg)`,
+                    }}
+                  />
+                );
+              })}
             </div>
 
             <div className="liquid-photo-mask absolute inset-0 overflow-hidden shadow-2xl shadow-violet-900/15 ring-1 ring-white/70">
