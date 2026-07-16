@@ -297,6 +297,21 @@ export default function Home() {
     { scope: root }
   );
 
+  /* ---------------- Magnetic butonlar & linkler ---------------- */
+  const magnetEnter = (e: React.MouseEvent<HTMLElement>, scale = 1.06) => {
+    gsap.to(e.currentTarget, { scale, duration: 0.4, ease: "power3.out" });
+  };
+  const magnetMove = (e: React.MouseEvent<HTMLElement>, strength = 0.4) => {
+    const el = e.currentTarget;
+    const rect = el.getBoundingClientRect();
+    const dx = e.clientX - (rect.left + rect.width / 2);
+    const dy = e.clientY - (rect.top + rect.height / 2);
+    gsap.to(el, { x: dx * strength, y: dy * strength, duration: 0.6, ease: "power3.out" });
+  };
+  const magnetLeave = (e: React.MouseEvent<HTMLElement>, scale = 1) => {
+    gsap.to(e.currentTarget, { x: 0, y: 0, scale, duration: 0.7, ease: "elastic.out(1, 0.35)" });
+  };
+
   /* ---------------- 3D tilt + spotlight (sektör kartları) ---------------- */
   const tilt = (e: React.MouseEvent<HTMLButtonElement>) => {
     const card = e.currentTarget;
@@ -384,7 +399,13 @@ export default function Home() {
         </a>
         <nav className="hidden items-center gap-9 text-sm text-slate-500 md:flex">
           {t.nav.map((item) => (
-            <a key={item.href} href={item.href} className="transition-colors duration-200 hover:text-slate-900">
+            <a
+              key={item.href}
+              href={item.href}
+              onMouseMove={(e) => magnetMove(e, 0.5)}
+              onMouseLeave={(e) => magnetLeave(e)}
+              className="inline-block transition-colors duration-200 hover:text-slate-900"
+            >
               {item.label}
             </a>
           ))}
@@ -393,13 +414,18 @@ export default function Home() {
           <button
             type="button"
             onClick={() => setLang(lang === "tr" ? "en" : "tr")}
+            onMouseMove={(e) => magnetMove(e, 0.5)}
+            onMouseLeave={(e) => magnetLeave(e)}
             className="rounded-full px-3 py-1.5 text-sm font-medium text-slate-500 transition-colors duration-200 hover:bg-slate-100 hover:text-slate-900"
           >
             {t.langToggle}
           </button>
           <a
             href="#iletisim"
-            className="group inline-flex items-center gap-1.5 rounded-full bg-slate-900 px-5 py-2 text-sm font-semibold text-white transition-transform duration-300 hover:scale-105"
+            onMouseEnter={(e) => magnetEnter(e)}
+            onMouseMove={(e) => magnetMove(e)}
+            onMouseLeave={(e) => magnetLeave(e)}
+            className="group inline-flex items-center gap-1.5 rounded-full bg-slate-900 px-5 py-2 text-sm font-semibold text-white"
           >
             {t.cta}
             <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
@@ -441,7 +467,10 @@ export default function Home() {
         <div className="hero-cta mt-12">
           <a
             href="#iletisim"
-            className="group relative isolate inline-flex items-center gap-2.5 rounded-full bg-gradient-to-r from-violet-600 to-fuchsia-600 px-10 py-4.5 text-lg font-medium text-white shadow-2xl shadow-violet-600/30 transition-transform duration-300 hover:scale-105"
+            onMouseEnter={(e) => magnetEnter(e, 1.05)}
+            onMouseMove={(e) => magnetMove(e, 0.35)}
+            onMouseLeave={(e) => magnetLeave(e)}
+            className="group relative isolate inline-flex items-center gap-2.5 rounded-full bg-gradient-to-r from-violet-600 to-fuchsia-600 px-10 py-4.5 text-lg font-medium text-white shadow-2xl shadow-violet-600/30"
           >
             <span className="absolute -inset-1.5 -z-10 rounded-full bg-gradient-to-r from-violet-500/50 to-fuchsia-500/50 opacity-0 blur-xl transition-opacity duration-500 group-hover:opacity-100" />
             {t.cta}
@@ -647,7 +676,10 @@ export default function Home() {
               </div>
               <button
                 type="submit"
-                className="group relative isolate mx-auto mt-4 inline-flex items-center gap-2.5 rounded-full bg-gradient-to-r from-violet-600 to-fuchsia-600 px-10 py-4 text-base font-medium text-white shadow-2xl shadow-violet-600/30 transition-transform duration-300 hover:scale-105"
+                onMouseEnter={(e) => magnetEnter(e, 1.05)}
+                onMouseMove={(e) => magnetMove(e, 0.35)}
+                onMouseLeave={(e) => magnetLeave(e)}
+                className="group relative isolate mx-auto mt-4 inline-flex items-center gap-2.5 rounded-full bg-gradient-to-r from-violet-600 to-fuchsia-600 px-10 py-4 text-base font-medium text-white shadow-2xl shadow-violet-600/30"
               >
                 <span className="absolute -inset-1.5 -z-10 rounded-full bg-gradient-to-r from-violet-500/50 to-fuchsia-500/50 opacity-0 blur-xl transition-opacity duration-500 group-hover:opacity-100" />
                 {t.fSubmit}
