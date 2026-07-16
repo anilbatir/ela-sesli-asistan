@@ -509,6 +509,15 @@ export default function Home() {
           aria-hidden
           className="pointer-events-none absolute inset-0 bg-[radial-gradient(rgba(139,92,246,0.08)_1px,transparent_1px)] [background-size:28px_28px]"
         />
+        {/* Dağılmış dekoratif küreler */}
+        <div aria-hidden className="pointer-events-none absolute inset-0 -z-10 hidden overflow-hidden sm:block">
+          <span className="absolute top-[8%] right-[6%] h-16 w-16 rounded-full bg-violet-500/50 blur-[2px]" />
+          <span className="absolute top-[22%] right-[2%] h-10 w-10 rounded-full bg-fuchsia-400/40" />
+          <span className="absolute bottom-[16%] right-[10%] h-24 w-24 rounded-full bg-fuchsia-400/30 blur-[6px]" />
+          <span className="absolute right-[3%] bottom-[6%] h-14 w-14 rounded-full bg-violet-500/35 blur-[2px]" />
+          <span className="absolute bottom-[10%] left-[4%] h-20 w-20 rounded-full bg-violet-300/40 blur-[4px]" />
+          <span className="absolute top-[14%] left-[3%] h-9 w-9 rounded-full bg-cyan-300/40" />
+        </div>
 
         <div className="mx-auto grid w-full max-w-7xl items-center gap-16 lg:grid-cols-[1.05fr_1fr] lg:gap-10">
           {/* Sol: dönen özellik başlığı */}
