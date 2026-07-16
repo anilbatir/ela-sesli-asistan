@@ -13,11 +13,12 @@ import {
   PhoneCall,
   Scale,
   Scissors,
+  Send,
   Stethoscope,
   UtensilsCrossed,
   type LucideIcon,
 } from "lucide-react";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 if (typeof window !== "undefined") {
   gsap.registerPlugin(ScrollTrigger, useGSAP);
@@ -36,8 +37,16 @@ const COPY = {
       { label: "Sektörler", href: "#sektorler" },
       { label: "İletişim", href: "#iletisim" },
     ],
-    heroLines: ["Her arama", "bir misafir."],
     heroSub: "Ela cevaplar. İnsan gibi konuşur, hiç yorulmaz, hiçbir fırsatı kaçırmaz.",
+    heroQuestions: [
+      "Bu hafta sonu müsait odanız var mı?",
+      "Görüşme için randevu oluşturabilir miyiz?",
+      "İnşaat sektörü için 2+1 daire fiyatlarınızı öğrenebilir miyim?",
+      "Akşam 8 için 4 kişilik masa ayırabilir misiniz?",
+      "Saç kesimi için yarın uygun bir saatiniz var mı?",
+    ],
+    heroLinkPrimary: "Örnek dinle",
+    heroLinkSecondary: "İletişime geç",
     cta: "Hemen Dene",
     scroll: "Kaydır",
     marquee: ["7/24 kesintisiz", "İnsan gibi doğal", "Anında cevap", "Sıfır kaçan arama", "Türkçe & İngilizce"],
@@ -91,8 +100,16 @@ const COPY = {
       { label: "Industries", href: "#sektorler" },
       { label: "Contact", href: "#iletisim" },
     ],
-    heroLines: ["Every call", "is a guest."],
     heroSub: "Ela answers. Speaks like a human, never tires, never misses an opportunity.",
+    heroQuestions: [
+      "Do you have any rooms available this weekend?",
+      "Can we schedule an appointment for a consultation?",
+      "Can I learn your 2+1 apartment prices for construction?",
+      "Can you book a table for 4 at 8pm tonight?",
+      "Do you have an available slot for a haircut tomorrow?",
+    ],
+    heroLinkPrimary: "Hear an example",
+    heroLinkSecondary: "Get in touch",
     cta: "Try now",
     scroll: "Scroll",
     marquee: ["24/7 always on", "Naturally human", "Instant answers", "Zero missed calls", "Turkish & English"],
@@ -169,6 +186,24 @@ export default function Home() {
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [submitted, setSubmitted] = useState(false);
 
+  /* ---------------- Hero: dönen başlık & soru çubuğu ---------------- */
+  const [featureIndex, setFeatureIndex] = useState(0);
+  const [questionIndex, setQuestionIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setFeatureIndex((i) => (i + 1) % COPY[lang].features.length);
+    }, 3200);
+    return () => clearInterval(timer);
+  }, [lang]);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setQuestionIndex((i) => (i + 1) % COPY[lang].heroQuestions.length);
+    }, 2800);
+    return () => clearInterval(timer);
+  }, [lang]);
+
   /* ---------------- GSAP orkestrasyonu ---------------- */
   useGSAP(
     () => {
@@ -179,38 +214,31 @@ export default function Home() {
         scrollTrigger: { trigger: document.body, start: "top top", end: "bottom bottom", scrub: 0.4 },
       });
 
-      /* Hero: satır satır reveal */
-      gsap.set(".hero-line-inner", { yPercent: 115 });
-      gsap.set([".hero-sub", ".hero-cta", ".hero-scroll"], { autoAlpha: 0, y: 30 });
+      /* Hero: giriş reveal */
+      gsap.set(".hero-left-item", { autoAlpha: 0, y: 30 });
+      gsap.set(".hero-photo", { autoAlpha: 0, scale: 0.92 });
+      gsap.set(".hero-scroll", { autoAlpha: 0, y: 30 });
       gsap.set(".site-header", { y: -80, autoAlpha: 0 });
 
       const intro = gsap.timeline({ defaults: { ease: "power4.out" } });
       intro
-        .to(".hero-line-inner", { yPercent: 0, duration: 1.4, stagger: 0.15 }, 0.2)
-        .to(".hero-sub", { autoAlpha: 1, y: 0, duration: 1 }, "-=0.7")
-        .to(".hero-cta", { autoAlpha: 1, y: 0, duration: 1 }, "-=0.7")
+        .to(".hero-left-item", { autoAlpha: 1, y: 0, duration: 1, stagger: 0.12 }, 0.2)
+        .to(".hero-photo", { autoAlpha: 1, scale: 1, duration: 1.1, ease: "power3.out" }, "-=0.7")
         .to(".site-header", { y: 0, autoAlpha: 1, duration: 0.9, ease: "power3.out" }, "-=0.8")
         .to(".hero-scroll", { autoAlpha: 1, y: 0, duration: 0.8 }, "-=0.4");
-
-      /* Hero: sıvı ses dalgası */
-      gsap.utils.toArray<HTMLElement>(".wave-bar").forEach((bar, i) => {
-        gsap.to(bar, {
-          scaleY: () => gsap.utils.random(0.35, 2.6),
-          duration: () => gsap.utils.random(0.45, 0.95),
-          repeat: -1,
-          yoyo: true,
-          repeatRefresh: true,
-          ease: "sine.inOut",
-          delay: i * 0.07,
-        });
-      });
 
       /* Hero: fare paralaksı — 3D derinlik */
       const orbA = gsap.quickTo(".orb-a", "x", { duration: 1.4, ease: "power3.out" });
       const orbAy = gsap.quickTo(".orb-a", "y", { duration: 1.4, ease: "power3.out" });
       const orbB = gsap.quickTo(".orb-b", "x", { duration: 1.8, ease: "power3.out" });
       const orbBy = gsap.quickTo(".orb-b", "y", { duration: 1.8, ease: "power3.out" });
-      const heroTitle = gsap.quickTo(".hero-title", "x", { duration: 1.2, ease: "power3.out" });
+      const heroRotator = gsap.quickTo(".hero-rotator", "x", { duration: 1.2, ease: "power3.out" });
+      const heroPhoto = gsap.quickTo(".hero-photo", "x", { duration: 1.3, ease: "power3.out" });
+      const heroPhotoY = gsap.quickTo(".hero-photo", "y", { duration: 1.3, ease: "power3.out" });
+      const heroOrb1 = gsap.quickTo(".hero-orb-1", "x", { duration: 1.6, ease: "power3.out" });
+      const heroOrb1y = gsap.quickTo(".hero-orb-1", "y", { duration: 1.6, ease: "power3.out" });
+      const heroOrb2 = gsap.quickTo(".hero-orb-2", "x", { duration: 2, ease: "power3.out" });
+      const heroOrb2y = gsap.quickTo(".hero-orb-2", "y", { duration: 2, ease: "power3.out" });
 
       const onMove = (e: MouseEvent) => {
         const nx = e.clientX / window.innerWidth - 0.5;
@@ -219,7 +247,13 @@ export default function Home() {
         orbAy(ny * 60);
         orbB(nx * -110);
         orbBy(ny * -80);
-        heroTitle(nx * 18);
+        heroRotator(nx * 14);
+        heroPhoto(nx * -22);
+        heroPhotoY(ny * -16);
+        heroOrb1(nx * 45);
+        heroOrb1y(ny * 35);
+        heroOrb2(nx * -55);
+        heroOrb2y(ny * -40);
       };
       window.addEventListener("mousemove", onMove);
 
@@ -434,51 +468,112 @@ export default function Home() {
       </header>
 
       {/* ---------- Hero ---------- */}
-      <section className="relative z-10 flex min-h-screen flex-col items-center justify-center px-6 text-center">
-        <h1 className="hero-title font-heading text-[13vw] leading-[0.95] font-medium tracking-tight sm:text-[10vw] lg:text-[8.5rem]">
-          {t.heroLines.map((line, i) => (
-            <span key={`${lang}-${i}`} className="block overflow-hidden pb-2">
-              <span className="hero-line-inner block">
-                {i === 1 ? (
-                  <span className="bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-500 bg-clip-text text-transparent">
-                    {line}
-                  </span>
-                ) : (
-                  line
-                )}
+      <section className="hero-section relative z-10 flex min-h-screen items-center overflow-hidden px-6 pt-32 pb-24 lg:pt-24">
+        {/* Lila gradyan zemin */}
+        <div
+          aria-hidden
+          className="absolute inset-0 -z-10 bg-gradient-to-br from-violet-100 via-fuchsia-50 to-violet-200"
+        />
+        <div
+          aria-hidden
+          className="hero-orb-1 pointer-events-none absolute -top-32 -right-16 h-[26rem] w-[26rem] rounded-full bg-violet-400/25 blur-[100px]"
+        />
+        <div
+          aria-hidden
+          className="hero-orb-2 pointer-events-none absolute -bottom-24 -left-16 h-[22rem] w-[22rem] rounded-full bg-fuchsia-300/25 blur-[100px]"
+        />
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(rgba(139,92,246,0.08)_1px,transparent_1px)] [background-size:28px_28px]"
+        />
+
+        <div className="mx-auto grid w-full max-w-7xl items-center gap-16 lg:grid-cols-[1.05fr_1fr] lg:gap-10">
+          {/* Sol: dönen özellik başlığı */}
+          <div className="relative z-10 flex flex-col items-start text-left">
+            <div className="hero-left-item min-h-[2.3em] sm:min-h-[2.6em] lg:min-h-[3.3em]">
+              <h1
+                key={`${lang}-${featureIndex}`}
+                className="hero-rotator animate-fade-in-up font-heading text-4xl leading-[1.08] font-medium tracking-tight text-slate-900 sm:text-5xl lg:text-[3.35rem]"
+              >
+                {t.features[featureIndex].title}
+              </h1>
+            </div>
+
+            <p className="hero-left-item mt-6 max-w-md text-balance text-lg leading-relaxed text-slate-600">
+              {t.heroSub}
+            </p>
+
+            <div className="hero-left-item mt-9 flex items-center gap-3">
+              <a
+                href="#iletisim"
+                onMouseEnter={(e) => magnetEnter(e, 1.05)}
+                onMouseMove={(e) => magnetMove(e, 0.35)}
+                onMouseLeave={(e) => magnetLeave(e)}
+                className="inline-flex items-center rounded-full bg-slate-900 px-8 py-4 text-base font-medium text-white shadow-xl shadow-violet-900/10"
+              >
+                {t.cta}
+              </a>
+              <a
+                href="#iletisim"
+                onMouseEnter={(e) => magnetEnter(e, 1.1)}
+                onMouseMove={(e) => magnetMove(e, 0.4)}
+                onMouseLeave={(e) => magnetLeave(e)}
+                aria-label={t.cta}
+                className="flex h-14 w-14 items-center justify-center rounded-full bg-white text-slate-900 shadow-md ring-1 ring-slate-200"
+              >
+                <ArrowRight className="h-5 w-5" />
+              </a>
+            </div>
+
+            <div className="hero-left-item mt-8 flex flex-col gap-2.5 text-sm font-medium text-slate-500">
+              <a href="#sektorler" className="group inline-flex w-fit items-center gap-1.5 hover:text-slate-900">
+                {t.heroLinkPrimary}
+                <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+              </a>
+              <a href="#iletisim" className="group inline-flex w-fit items-center gap-1.5 hover:text-slate-900">
+                {t.heroLinkSecondary}
+                <ArrowRight className="h-3.5 w-3.5 transition-transform duration-300 group-hover:translate-x-1" />
+              </a>
+            </div>
+          </div>
+
+          {/* Sağ: Ela'nın dairesel görseli + soru çubuğu */}
+          <div className="hero-photo relative mx-auto aspect-square w-full max-w-[22rem] sm:max-w-[26rem] lg:max-w-[30rem]">
+            <div className="absolute inset-0 overflow-hidden rounded-full shadow-2xl shadow-violet-900/15 ring-1 ring-white/70">
+              {/* TODO: Ela'nın fotoğrafı gelince <img src="/ela-portrait.jpg" alt="Ela" className="h-full w-full object-cover" /> ile değiştir */}
+              <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-violet-300 via-fuchsia-200 to-cyan-100">
+                <span className="font-heading text-6xl font-medium text-white/80 sm:text-7xl">ela</span>
+              </div>
+            </div>
+
+            {/* Dönen müşteri sorusu çubuğu */}
+            <div className="hero-chatbar absolute top-[4%] left-1/2 w-[88%] -translate-x-1/2 rounded-2xl border border-white/70 bg-white/85 px-4 py-3.5 shadow-xl shadow-violet-900/10 backdrop-blur-xl sm:px-5 sm:py-4">
+              <div className="flex items-center gap-3">
+                <div className="min-h-[2.4em] flex-1 overflow-hidden">
+                  <p
+                    key={`${lang}-${questionIndex}`}
+                    className="animate-fade-in-up line-clamp-2 text-[13px] leading-snug font-medium text-slate-700 sm:text-sm"
+                  >
+                    {t.heroQuestions[questionIndex]}
+                  </p>
+                </div>
+                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-violet-600 to-fuchsia-600 text-white shadow-lg shadow-violet-600/30 sm:h-9 sm:w-9">
+                  <Send className="h-3.5 w-3.5 sm:h-4 sm:w-4" />
+                </span>
+              </div>
+            </div>
+
+            {/* Yüzen istatistik rozeti */}
+            <div className="hero-left-item absolute -bottom-3 left-1/2 flex -translate-x-1/2 items-center gap-2.5 rounded-2xl border border-white/70 bg-white/85 px-5 py-3 shadow-lg shadow-violet-900/10 backdrop-blur-xl sm:left-4 sm:translate-x-0">
+              <span className="font-heading text-xl font-semibold text-violet-600 sm:text-2xl">{t.statValue}</span>
+              <span className="text-[10px] font-medium tracking-wide text-slate-500 uppercase sm:text-xs">
+                {t.statLabel}
               </span>
-            </span>
-          ))}
-        </h1>
-
-        <div className="mt-10 flex h-16 items-center justify-center gap-2">
-          {Array.from({ length: 9 }).map((_, i) => (
-            <span
-              key={i}
-              className="wave-bar h-7 w-1.5 origin-center rounded-full bg-gradient-to-t from-violet-500 to-cyan-400"
-            />
-          ))}
+            </div>
+          </div>
         </div>
 
-        <p className="hero-sub mt-8 max-w-xl text-balance text-lg leading-relaxed text-slate-500 sm:text-xl">
-          {t.heroSub}
-        </p>
-
-        <div className="hero-cta mt-12">
-          <a
-            href="#iletisim"
-            onMouseEnter={(e) => magnetEnter(e, 1.05)}
-            onMouseMove={(e) => magnetMove(e, 0.35)}
-            onMouseLeave={(e) => magnetLeave(e)}
-            className="group relative isolate inline-flex items-center gap-2.5 rounded-full bg-gradient-to-r from-violet-600 to-fuchsia-600 px-10 py-4.5 text-lg font-medium text-white shadow-2xl shadow-violet-600/30"
-          >
-            <span className="absolute -inset-1.5 -z-10 rounded-full bg-gradient-to-r from-violet-500/50 to-fuchsia-500/50 opacity-0 blur-xl transition-opacity duration-500 group-hover:opacity-100" />
-            {t.cta}
-            <ArrowRight className="h-5 w-5 transition-transform duration-300 group-hover:translate-x-1.5" />
-          </a>
-        </div>
-
-        <div className="hero-scroll absolute bottom-10 flex flex-col items-center gap-2 text-xs tracking-[0.3em] text-slate-400 uppercase">
+        <div className="hero-scroll absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2 text-xs tracking-[0.3em] text-slate-400 uppercase">
           {t.scroll}
           <ArrowDown className="h-4 w-4 animate-bounce" />
         </div>
