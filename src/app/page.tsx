@@ -263,6 +263,13 @@ export default function Home() {
       const heroOrb2 = gsap.quickTo(".hero-orb-2", "x", { duration: 2, ease: "power3.out" });
       const heroOrb2y = gsap.quickTo(".hero-orb-2", "y", { duration: 2, ease: "power3.out" });
 
+      /* Yankı halkaları: her katman bir öncekinden daha geç ve daha güçlü tepki verir */
+      const RING_STRENGTH = [16, 30, 46, 64];
+      const ringSetters = RING_STRENGTH.map((_, i) => ({
+        x: gsap.quickTo(`.hero-ring-${i + 1}`, "x", { duration: 0.55 + i * 0.35, ease: "power3.out" }),
+        y: gsap.quickTo(`.hero-ring-${i + 1}`, "y", { duration: 0.55 + i * 0.35, ease: "power3.out" }),
+      }));
+
       const onMove = (e: MouseEvent) => {
         const nx = e.clientX / window.innerWidth - 0.5;
         const ny = e.clientY / window.innerHeight - 0.5;
@@ -277,8 +284,18 @@ export default function Home() {
         heroOrb1y(ny * 35);
         heroOrb2(nx * -55);
         heroOrb2y(ny * -40);
+        ringSetters.forEach(({ x, y }, i) => {
+          x(nx * RING_STRENGTH[i]);
+          y(ny * RING_STRENGTH[i] * 0.8);
+        });
       };
       window.addEventListener("mousemove", onMove);
+
+      /* Fare ekrandan çıkınca halkalar yay efektiyle merkeze döner */
+      const onLeaveWindow = () => {
+        gsap.to(".hero-ring", { x: 0, y: 0, duration: 1.3, ease: "elastic.out(1, 0.4)" });
+      };
+      document.addEventListener("mouseleave", onLeaveWindow);
 
       /* Aura: sürekli yaşayan hareket */
       gsap.to(".orb-a", { rotation: 360, duration: 80, repeat: -1, ease: "none" });
@@ -349,7 +366,10 @@ export default function Home() {
         });
       });
 
-      return () => window.removeEventListener("mousemove", onMove);
+      return () => {
+        window.removeEventListener("mousemove", onMove);
+        document.removeEventListener("mouseleave", onLeaveWindow);
+      };
     },
     { scope: root }
   );
@@ -571,6 +591,14 @@ export default function Home() {
 
           {/* Sağ: Ela'nın dairesel görseli + soru çubuğu */}
           <div className="hero-photo relative mx-auto aspect-square w-full max-w-[22rem] sm:max-w-[26rem] lg:max-w-[30rem]">
+            {/* Fareyi takip eden yankı halkaları */}
+            <div aria-hidden className="pointer-events-none absolute inset-0 -z-10">
+              <span className="hero-ring hero-ring-1 absolute inset-[-7%] rounded-full border border-violet-400/35 bg-gradient-to-br from-violet-300/12 to-fuchsia-300/6 backdrop-blur-[1px]" />
+              <span className="hero-ring hero-ring-2 absolute inset-[-16%] rounded-full border border-fuchsia-400/24 bg-fuchsia-300/6 backdrop-blur-[1px]" />
+              <span className="hero-ring hero-ring-3 absolute inset-[-27%] rounded-full border border-violet-300/16" />
+              <span className="hero-ring hero-ring-4 absolute inset-[-40%] rounded-full border border-fuchsia-300/10" />
+            </div>
+
             <div className="liquid-photo-mask absolute inset-0 overflow-hidden shadow-2xl shadow-violet-900/15 ring-1 ring-white/70">
               <Image
                 src="/ela.jpg"
