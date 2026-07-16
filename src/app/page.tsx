@@ -279,15 +279,21 @@ export default function Home() {
         { dx: -20, dy: 4, duration: 0.9 },
       ];
       const heroSectionEl = document.querySelector<HTMLElement>(".hero-section");
+      const photoEl = document.querySelector<HTMLElement>(".hero-photo");
+      /* Üçüncü yankı halkasının (inset -27%) yarıçapı: dairenin çapı üzerinden çıkarım */
+      const RING_3_RADIUS_FACTOR = 1.54;
       const cursorDotSetters = CURSOR_DOTS.map((cfg, i) => ({
         x: gsap.quickTo(`.cursor-dot-${i + 1}`, "x", { duration: cfg.duration, ease: "power3.out" }),
         y: gsap.quickTo(`.cursor-dot-${i + 1}`, "y", { duration: cfg.duration, ease: "power3.out" }),
         dx: cfg.dx,
         dy: cfg.dy,
       }));
-      if (heroSectionEl) {
-        const initialRect = heroSectionEl.getBoundingClientRect();
-        gsap.set(".cursor-dot", { x: initialRect.width / 2, y: initialRect.height * 0.4 });
+      if (heroSectionEl && photoEl) {
+        const sectionRect = heroSectionEl.getBoundingClientRect();
+        const photoRect = photoEl.getBoundingClientRect();
+        const centerX = photoRect.left + photoRect.width / 2 - sectionRect.left;
+        const centerY = photoRect.top + photoRect.height / 2 - sectionRect.top;
+        gsap.set(".cursor-dot", { x: centerX, y: centerY });
       }
 
       const onMove = (e: MouseEvent) => {
@@ -308,13 +314,24 @@ export default function Home() {
           x(nx * RING_STRENGTH[i]);
           y(ny * RING_STRENGTH[i] * 0.8);
         });
-        if (heroSectionEl) {
-          const rect = heroSectionEl.getBoundingClientRect();
-          const localX = e.clientX - rect.left;
-          const localY = e.clientY - rect.top;
+        if (heroSectionEl && photoEl) {
+          const sectionRect = heroSectionEl.getBoundingClientRect();
+          const photoRect = photoEl.getBoundingClientRect();
+          const centerX = photoRect.left + photoRect.width / 2 - sectionRect.left;
+          const centerY = photoRect.top + photoRect.height / 2 - sectionRect.top;
+          const maxRadius = (photoRect.width / 2) * RING_3_RADIUS_FACTOR;
+
+          const rawX = e.clientX - sectionRect.left - centerX;
+          const rawY = e.clientY - sectionRect.top - centerY;
+          const dist = Math.hypot(rawX, rawY);
+          const clampedDist = Math.min(dist, maxRadius);
+          const angle = Math.atan2(rawY, rawX);
+          const clusterX = centerX + Math.cos(angle) * clampedDist;
+          const clusterY = centerY + Math.sin(angle) * clampedDist;
+
           cursorDotSetters.forEach(({ x, y, dx, dy }) => {
-            x(localX + dx);
-            y(localY + dy);
+            x(clusterX + dx);
+            y(clusterY + dy);
           });
         }
       };
