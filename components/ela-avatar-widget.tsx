@@ -13,7 +13,7 @@ interface Message {
 const elaResponses: Record<string, string> = {
   'Hizmetleriniz neler?': 'Telefon, WhatsApp, Instagram, Facebook ve web sitenizdeki canlı sohbete cevap veririm. 32 dilde sesli ve yazılı iletişim, randevu oluşturma, rezervasyon ve bilgi verme — hepsini 7/24 yaparım.',
   'Fiyat almak istiyorum': 'Memnuniyetle! İşletmenizin büyüklüğüne ve ihtiyaç duyduğunuz kanal sayısına göre size özel fiyat sunabilirim. Demo talebi için iletişim formunu doldurabilir misiniz?',
-  'Ela sen ne yapabilirsin?': 'Telefonlara sesli cevap verir, WhatsApp ve sosyal medyada yazılı yanıt yazar, randevu ve rezervasyon oluşturur, ürün/proje bilgisi verir, sık sorulan soruları yanıtlar — 32 dilde, 3 saniyede, 7/24.',
+  'Ela sen ne yapabilirsin?': 'Telefonlara sesli cevap verir, WhatsApp ve sosyal medyada yazılı yanıt yazar, randevu ve rezervasyon oluşturur, ürün/proje bilgisi verir, sık sorulan soruları yanıtlar — 32 dilde, 0.2 saniyede, 7/24.',
   'Otel için uygun mu?': 'Kesinlikle! Oteller için rezervasyon alır, oda müsaitliği kontrol eder, fiyat bilgisi verir, check-in/check-out saatlerini yanıtlar ve özel istekleri kaydeder.',
   'Hangi dillerde konuşuyorsun?': '32 dilde konuşurum: Türkçe, İngilizce, Almanca, Arapça, Rusça, Fransızca, İspanyolca, İtalyanca ve daha fazlası. Yabancı müşterilerinize kendi dilinde hitap ederim.',
 };

@@ -39,7 +39,7 @@ export default function Hero() {
           </motion.h1>
 
           <motion.p variants={item} className="mt-6 max-w-xl text-lg text-gray-400 md:text-xl">
-            Otellerden restoranlara, inşaat şirketlerinden perakendeye — Ela telefonlara sesli, WhatsApp ve sosyal medyada yazılı cevap verir. 32 dilde, 3 saniyede, 7/24.
+            Otellerden restoranlara, inşaat şirketlerinden perakendeye — Ela telefonlara sesli, WhatsApp ve sosyal medyada yazılı cevap verir. 32 dilde, 0.2 saniyede, 7/24.
           </motion.p>
 
           <motion.div variants={item} className="mt-10 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
@@ -58,7 +58,7 @@ export default function Hero() {
           {/* Stats bar */}
           <motion.div variants={item} className="mt-12 flex flex-wrap items-center gap-x-8 gap-y-3">
             {[
-              { icon: Zap, label: '3 Saniyede Yanıt' },
+              { icon: Zap, label: '0.2 Saniyede Yanıt' },
               { icon: PhoneCall, label: '32 Dilde Sesli' },
               { icon: MessageCircle, label: '7/24 Her Kanalda' },
             ].map((stat) => {
@@ -82,17 +82,16 @@ export default function Hero() {
         >
           <div className="relative">
             {/* Decorative glow ring */}
-            <div className="absolute inset-0 -m-4 rounded-[2.5rem] bg-gradient-to-br from-violet-500/30 to-indigo-500/20 blur-2xl" />
-            <div className="absolute inset-0 -m-1 rounded-[2.5rem] bg-gradient-to-br from-violet-400/20 to-transparent" />
+            <div className="absolute inset-0 -m-4 rounded-full bg-gradient-to-br from-violet-500/30 to-indigo-500/20 blur-2xl" />
+            <div className="absolute inset-0 -m-1 rounded-full bg-gradient-to-br from-violet-400/20 to-transparent" />
 
             {/* Main image */}
-            <div className="relative overflow-hidden rounded-[2.5rem] border border-white/10 shadow-2xl">
+            <div className="relative aspect-square w-[320px] overflow-hidden rounded-full border border-white/10 shadow-2xl sm:w-[400px] lg:w-[460px]">
               <Image
                 src="/images/ela-portrait-cropped.jpg"
                 alt="Ela — Sesli Yapay Zeka Asistanı"
-                width={480}
-                height={540}
-                className="object-cover"
+                fill
+                className="object-cover object-top"
                 priority
               />
               {/* Color overlay gradient */}
@@ -128,7 +127,7 @@ export default function Hero() {
               animate={{ y: [0, 8, 0] }}
               transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut', delay: 0.6 }}
             >
-              <p className="text-xs font-bold text-indigo-300">⚡ 3 Sn</p>
+              <p className="text-xs font-bold text-indigo-300">⚡ 0.2 Sn</p>
               <p className="text-[10px] text-gray-500">Yanıt Süresi</p>
             </motion.div>
           </div>

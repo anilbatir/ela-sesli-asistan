@@ -93,10 +93,12 @@ export default function ElaShowcase() {
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: i * 0.1, duration: 0.4 }}
-                  className="flex items-start gap-3"
+                  className="group flex items-start gap-3"
                 >
                   <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-violet-400" />
-                  <span className="text-base text-gray-300">{benefit}</span>
+                  <span className="text-base text-gray-300 transition-all duration-200 group-hover:text-lg group-hover:font-bold group-hover:text-white">
+                    {benefit}
+                  </span>
                 </motion.li>
               ))}
             </ul>

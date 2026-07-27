@@ -2,7 +2,7 @@
 
 import { motion, AnimatePresence, useScroll, useMotionValueEvent } from 'framer-motion';
 import { useState } from 'react';
-import { Menu, X, PhoneCall } from 'lucide-react';
+import { Menu, X, AudioLines } from 'lucide-react';
 
 const navLinks = [
   { label: 'Özellikler', href: '#ozellikler' },
@@ -32,9 +32,11 @@ export default function Navbar() {
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
         <a href="#" className="group flex items-center gap-2.5">
           <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500 to-indigo-600 glow-primary transition-transform duration-300 group-hover:scale-110">
-            <PhoneCall className="h-5 w-5 text-white" />
+            <AudioLines className="h-5 w-5 text-white" />
           </div>
-          <span className="font-display text-xl font-bold tracking-tight text-white">Ela</span>
+          <span className="font-logo text-2xl font-bold tracking-tight bg-gradient-to-r from-violet-300 via-white to-indigo-300 bg-clip-text text-transparent">
+            Ela
+          </span>
         </a>
 
         <div className="hidden items-center gap-8 md:flex">

@@ -10,8 +10,23 @@ import {
   ShieldCheck,
   Sparkles,
 } from 'lucide-react';
+import { FaPhone, FaWhatsapp, FaInstagram, FaFacebookMessenger, FaComments, FaEnvelope } from 'react-icons/fa6';
 import Image from 'next/image';
 import type { LucideIcon } from 'lucide-react';
+import type { IconType } from 'react-icons';
+
+interface ChannelBadge {
+  icon: IconType;
+  label: string;
+  color: string;
+  glow: string;
+}
+
+const channelBadges: ChannelBadge[] = [
+  { icon: FaPhone, label: 'Sesli Arama', color: 'text-violet-300', glow: 'from-violet-500/30 to-indigo-500/20' },
+  { icon: FaWhatsapp, label: 'WhatsApp', color: 'text-[#25D366]', glow: 'from-[#25D366]/25 to-[#25D366]/10' },
+  { icon: FaInstagram, label: 'Instagram', color: 'text-[#E1306C]', glow: 'from-[#E1306C]/25 via-[#C13584]/15 to-[#F77737]/15' },
+];
 
 interface Feature {
   icon: LucideIcon;
@@ -45,8 +60,8 @@ const features: Feature[] = [
   },
   {
     icon: Zap,
-    title: '3 Saniyede Yanıt',
-    description: 'Müşterinizi bekletmez. Her aramada ve mesajda ortalama 3 saniye içinde yanıt verir. Hız, memnuniyet demektir.',
+    title: '0.2 Saniyede Yanıt',
+    description: 'Müşterinizi bekletmez. Her aramada ve mesajda ortalama 0.2 saniye içinde yanıt verir. Hız, memnuniyet demektir.',
     color: 'text-indigo-400',
     bgColor: 'from-indigo-500/10 to-violet-500/5',
   },
@@ -67,12 +82,12 @@ const features: Feature[] = [
 ];
 
 const channels = [
-  { icon: PhoneCall, label: 'Telefon (Sesli)' },
-  { icon: MessageCircle, label: 'WhatsApp' },
-  { icon: MessageCircle, label: 'Instagram DM' },
-  { icon: MessageCircle, label: 'Facebook Messenger' },
-  { icon: MessageCircle, label: 'Web Sitesi Canlı Sohbet' },
-  { icon: MessageCircle, label: 'E-posta' },
+  { icon: FaPhone, label: 'Telefon (Sesli)', color: 'text-violet-300' },
+  { icon: FaWhatsapp, label: 'WhatsApp', color: 'text-[#25D366]' },
+  { icon: FaInstagram, label: 'Instagram DM', color: 'text-[#E1306C]' },
+  { icon: FaFacebookMessenger, label: 'Facebook Messenger', color: 'text-[#0084FF]' },
+  { icon: FaComments, label: 'Web Sitesi Canlı Sohbet', color: 'text-indigo-300' },
+  { icon: FaEnvelope, label: 'E-posta', color: 'text-violet-300' },
 ];
 
 export default function ElaSection() {
@@ -127,17 +142,24 @@ export default function ElaSection() {
               />
               <div className="absolute inset-0 bg-gradient-to-t from-violet-950/40 via-transparent to-transparent" />
 
-              {/* Sound waves overlay at bottom */}
-              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-end gap-1.5 rounded-2xl border border-white/10 bg-violet-950/70 px-6 py-3 backdrop-blur-sm">
-                {[0, 1, 2, 3, 4, 5, 6].map((idx) => (
+              {/* Siri tarzı dairesel dinleme animasyonu */}
+              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-3 rounded-2xl border border-white/10 bg-violet-950/70 px-5 py-3 backdrop-blur-sm">
+                <div className="relative flex h-8 w-8 items-center justify-center">
+                  {[0, 1].map((idx) => (
+                    <motion.span
+                      key={idx}
+                      className="absolute inset-0 rounded-full border border-violet-300/60"
+                      animate={{ scale: [1, 1.9], opacity: [0.6, 0] }}
+                      transition={{ duration: 1.8, repeat: Infinity, delay: idx * 0.9, ease: 'easeOut' }}
+                    />
+                  ))}
                   <motion.div
-                    key={idx}
-                    className="w-1.5 rounded-full bg-violet-300"
-                    animate={{ height: [6, 22, 6, 16, 6] }}
-                    transition={{ duration: 1.2, repeat: Infinity, delay: idx * 0.1, ease: 'easeInOut' }}
+                    className="h-4 w-4 rounded-full bg-gradient-to-br from-violet-400 to-indigo-400"
+                    animate={{ scale: [1, 1.2, 1], opacity: [0.8, 1, 0.8] }}
+                    transition={{ duration: 1.4, repeat: Infinity, ease: 'easeInOut' }}
                   />
-                ))}
-                <span className="ml-2 text-xs font-medium text-violet-200">Dinliyorum...</span>
+                </div>
+                <span className="text-xs font-medium text-violet-200">Dinliyorum...</span>
               </div>
 
               {/* Status */}
@@ -162,8 +184,37 @@ export default function ElaSection() {
                 Müşteriniz rezervasyon istediğinde ben oluştururum. Bilgi istediklerinde ben veririm.
                 Siz işinize odaklanın, iletişimi bana bırakın.
               </p>
-              <div className="mt-6 flex flex-wrap gap-3">
-                {['Sesli Arama', 'WhatsApp', 'Instagram', '32 Dil', '7/24', '3 Saniye'].map((tag) => (
+              {/* Kanal rozetleri: yüzen, kümelenmiş logolar */}
+              <div className="mt-6 flex items-center -space-x-3">
+                {channelBadges.map((channel, i) => {
+                  const Icon = channel.icon;
+                  return (
+                    <motion.div
+                      key={channel.label}
+                      className="group relative"
+                      style={{ zIndex: channelBadges.length - i }}
+                      animate={{ y: [0, -6, 0] }}
+                      transition={{ duration: 2.6, repeat: Infinity, ease: 'easeInOut', delay: i * 0.35 }}
+                      whileHover={{ scale: 1.12, zIndex: 10 }}
+                    >
+                      <div
+                        className={`flex h-14 w-14 items-center justify-center rounded-full border border-white/15 bg-gradient-to-br ${channel.glow} bg-[#12121a] shadow-lg backdrop-blur-sm transition-shadow duration-300 group-hover:shadow-violet-500/20`}
+                      >
+                        <Icon className={`h-6 w-6 ${channel.color}`} />
+                      </div>
+                      <span className="pointer-events-none absolute left-1/2 top-full mt-2 -translate-x-1/2 whitespace-nowrap rounded-md bg-[#0d0d13] px-2 py-1 text-xs font-medium text-gray-300 opacity-0 shadow-lg transition-opacity duration-200 group-hover:opacity-100">
+                        {channel.label}
+                      </span>
+                    </motion.div>
+                  );
+                })}
+                <span className="ml-6 text-sm text-gray-400">
+                  hangi kanaldan yazarsanız yazın, Ela cevap verir
+                </span>
+              </div>
+
+              <div className="mt-4 flex flex-wrap gap-3">
+                {['32 Dil', '7/24', '0.2 Saniye'].map((tag) => (
                   <span key={tag} className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-gray-300">
                     {tag}
                   </span>
@@ -182,7 +233,7 @@ export default function ElaSection() {
                 <div className="flex items-center gap-2 rounded-2xl border border-indigo-500/20 bg-indigo-500/10 px-4 py-3">
                   <Zap className="h-5 w-5 text-indigo-400" />
                   <div>
-                    <p className="text-sm font-bold text-indigo-300">3 Saniye</p>
+                    <p className="text-sm font-bold text-indigo-300">0.2 Saniye</p>
                     <p className="text-xs text-gray-500">Ortalama yanıt</p>
                   </div>
                 </div>
@@ -263,7 +314,7 @@ export default function ElaSection() {
                   className="group flex flex-col items-center gap-3 rounded-2xl border border-white/10 bg-[#12121a] p-6 transition-all duration-300 hover:border-violet-500/30 hover:shadow-lg"
                 >
                   <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500/10 to-indigo-500/10 transition-all duration-300 group-hover:from-violet-500/20 group-hover:to-indigo-500/20">
-                    <Icon className="h-6 w-6 text-violet-400" />
+                    <Icon className={`h-6 w-6 ${channel.color}`} />
                   </div>
                   <span className="text-center text-sm font-medium text-gray-300">{channel.label}</span>
                 </motion.div>

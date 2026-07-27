@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import AnimatedBackground from "@/components/animated-background";
 import MouseGlow from "@/components/mouse-glow";
@@ -15,9 +15,15 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-logo",
+  subsets: ["latin"],
+  weight: ["600", "700"],
+});
+
 export const metadata: Metadata = {
   title: "Ela — İşletmenizin Sesli Yapay Zeka Asistanı",
-  description: "Ela, işletmenizin telefon, WhatsApp ve sosyal medya kanallarını 32 dilde, 3 saniyede, 7/24 yöneten sesli yapay zeka asistanıdır.",
+  description: "Ela, işletmenizin telefon, WhatsApp ve sosyal medya kanallarını 32 dilde, 0.2 saniyede, 7/24 yöneten sesli yapay zeka asistanıdır.",
 };
 
 export default function RootLayout({
@@ -28,7 +34,7 @@ export default function RootLayout({
   return (
     <html
       lang="tr"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} ${spaceGrotesk.variable} h-full antialiased`}
     >
       <body className="relative min-h-full flex flex-col">
         <AnimatedBackground />

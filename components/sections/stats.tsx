@@ -11,10 +11,10 @@ interface Stat {
 }
 
 const stats: Stat[] = [
-  { value: 3, suffix: ' sn', label: 'Ortalama Yanıt Süresi' },
+  { value: 0.2, suffix: ' sn', label: 'Ortalama Yanıt Süresi', decimals: 1 },
   { value: 32, suffix: '', label: 'Desteklenen Dil' },
-  { value: 24, suffix: '/7', label: 'Kesintisiz Hizmet' },
-  { value: 99, suffix: '%', label: 'Çağrı Cevaplama Oranı' },
+  { value: 7, suffix: '/24', label: 'Kesintisiz Hizmet' },
+  { value: 100, suffix: '%', label: 'Çağrı Cevaplama Oranı' },
 ];
 
 function Counter({ value, suffix, decimals = 0 }: { value: number; suffix: string; decimals?: number }) {
