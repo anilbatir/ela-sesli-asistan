@@ -5,11 +5,12 @@ import { Quote, Star, ArrowRight, CheckCircle2 } from 'lucide-react';
 import Image from 'next/image';
 
 const benefits = [
-  '7/24 hiçbir aramayı kaçırmaz',
-  '32 dilde yabancı müşteriye hitap eder',
-  'WhatsApp ve sosyal medyada anında yanıt',
-  'Randevu ve rezervasyon otomatik',
-  'KVKK uyumlu güvenli altyapı',
+  { title: '7/24 hiçbir aramayı kaçırmaz', detail: 'Gece yarısı da, tatilde de arayan her müşteriye cevap verir — kaçan çağrı, kaçan müşteri demektir.' },
+  { title: '32 dilde yabancı müşteriye kendi dilinde güven verir', detail: 'Yabancı müşteriniz İngilizce, Almanca ya da Arapça yazsa da anlar ve aynı dilde cevap verir.' },
+  { title: 'WhatsApp, Instagram ve web sitenizde 0.2 saniyede yanıt verir', detail: 'Müşteri beklemez; tüm kanallardan gelen mesajlara anında dönüş yapılır.' },
+  { title: 'Randevu ve rezervasyonu otomatik oluşturur, unutmaz', detail: 'Takvim çakışması yok, hatırlatma yok — her randevu otomatik ve doğru kaydedilir.' },
+  { title: 'Bir çalışanın maliyetinin çok altında, hiç izin kullanmaz', detail: 'Maaş, sigorta, izin, mesai yok — Ela her gün, her saat aynı performansla çalışır.' },
+  { title: 'KVKK uyumlu, güvenli altyapı', detail: 'Tüm konuşmalar şifreli saklanır, müşteri verileriniz yasal olarak korunur.' },
 ];
 
 export default function ElaShowcase() {
@@ -28,9 +29,9 @@ export default function ElaShowcase() {
             Müşteri Görüşü
           </span>
           <h2 className="font-display text-4xl font-bold tracking-tight text-white md:text-5xl">
-            Ela'yla Çalışmak{' '}
+            Bir Yazılım Değil,{' '}
             <span className="bg-gradient-to-r from-violet-400 to-indigo-400 bg-clip-text text-transparent">
-              Bu Kadar Kolay
+              Hiç Yorulmayan Bir Çalışan
             </span>
           </h2>
         </motion.div>
@@ -47,13 +48,19 @@ export default function ElaShowcase() {
             <div className="absolute inset-0 -m-4 rounded-[2.5rem] bg-gradient-to-br from-violet-500/20 to-indigo-500/15 blur-2xl" />
             <div className="relative overflow-hidden rounded-[2rem] border border-white/10 shadow-2xl">
               <Image
-                src="/images/ela-collage.jpg"
-                alt="Ela Asistan Özellikleri"
+                src="/images/ela-portrait.jpg"
+                alt="Ela — Sesli Yapay Zeka Asistanı"
                 width={600}
                 height={480}
                 className="w-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-violet-950/30 to-transparent" />
+
+              {/* Konuşma balonu vurgusu */}
+              <div className="absolute left-5 top-5 flex items-center gap-2 rounded-2xl border border-white/10 bg-[#12121a]/85 px-4 py-2.5 shadow-lg backdrop-blur-sm">
+                <span className="h-2 w-2 animate-pulse rounded-full bg-green-500" />
+                <span className="text-sm font-semibold text-white">Merhaba, ben Ela.</span>
+              </div>
             </div>
 
             {/* Floating quote card */}
@@ -62,13 +69,14 @@ export default function ElaShowcase() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.4, duration: 0.5 }}
-              className="absolute -bottom-6 -right-4 max-w-xs rounded-2xl border border-white/10 bg-[#12121a] p-5 shadow-xl backdrop-blur-sm md:-right-8"
+              style={{ backgroundColor: 'rgba(20, 17, 28, 0.97)' }}
+              className="absolute -bottom-6 -right-4 max-w-xs rounded-2xl border border-violet-400/40 p-5 shadow-2xl shadow-black/60 backdrop-blur-md md:-right-8"
             >
               <Quote className="mb-2 h-5 w-5 text-violet-400" />
-              <p className="text-sm font-medium leading-relaxed text-gray-300">
+              <p className="text-sm font-medium leading-relaxed text-gray-200">
                 &ldquo;Ela sayesinde hiçbir telefonu kaçırmıyoruz. Yabancı müşterilerimize kendi dillerinde hitap edebiliyoruz.&rdquo;
               </p>
-              <p className="mt-3 text-xs font-semibold text-gray-500">— Erkaya İnşaat</p>
+              <p className="mt-3 text-xs font-semibold text-gray-400">— Memnun Bir İşletme Sahibi</p>
             </motion.div>
           </motion.div>
 
@@ -80,25 +88,28 @@ export default function ElaShowcase() {
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
           >
             <h3 className="font-display text-2xl font-bold text-white md:text-3xl">
-              Neden Ela?
+              Neden İşletmeler Ela'yı Seçiyor?
             </h3>
             <p className="mt-4 text-base leading-relaxed text-gray-400 md:text-lg">
-              Ela, işletmenizin tüm iletişim yükünü omuzlarınızdan alır. Siz işinize odaklanın, müşteri iletişimini Ela'ya bırakın.
+              Her kaçan çağrı, cevapsız kalan bir mesaj demek — kaybedilen bir müşteri demek. Ela, bu riski ortadan kaldırır: işinize odaklanın, müşteri iletişimini Ela'ya bırakın.
             </p>
-            <ul className="mt-8 space-y-4">
+            <ul className="mt-8 space-y-5">
               {benefits.map((benefit, i) => (
                 <motion.li
                   key={i}
                   initial={{ opacity: 0, x: 20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: i * 0.1, duration: 0.4 }}
+                  transition={{ delay: i * 0.08, duration: 0.4 }}
                   className="group flex items-start gap-3"
                 >
                   <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-violet-400" />
-                  <span className="text-base text-gray-300 transition-all duration-200 group-hover:text-lg group-hover:font-bold group-hover:text-white">
-                    {benefit}
-                  </span>
+                  <div>
+                    <p className="text-base font-semibold text-white transition-all duration-200 group-hover:text-violet-300">
+                      {benefit.title}
+                    </p>
+                    <p className="mt-0.5 text-sm text-gray-500">{benefit.detail}</p>
+                  </div>
                 </motion.li>
               ))}
             </ul>
