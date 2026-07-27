@@ -105,11 +105,11 @@ const sectors: Sector[] = [
 const waveHeights = [14, 24, 10, 30, 18, 36, 12, 26, 20, 8, 32, 16, 22, 12, 28, 18, 10, 24];
 
 export default function SectorDemo() {
-  const [active, setActive] = useState(sectors.length - 1);
-  const sector = sectors[active];
+  const [active, setActive] = useState<number | null>(null);
+  const sector = active !== null ? sectors[active] : null;
 
   return (
-    <section id="demolar" className="relative px-6 py-24 md:py-32">
+    <section id="ozellikler" className="relative px-6 py-24 md:py-32">
       <div className="mx-auto max-w-5xl">
         <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-[#15121c] p-8 md:p-14">
           <div className="absolute -left-24 -top-24 h-72 w-72 rounded-full bg-violet-600/15 blur-[110px]" />
@@ -168,13 +168,14 @@ export default function SectorDemo() {
               })}
             </div>
 
-            {/* Demo player */}
+            {/* Demo player: sadece bir sektör seçildiğinde belirir */}
             <AnimatePresence mode="wait">
+              {sector && (
               <motion.div
                 key={active}
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -16 }}
+                initial={{ opacity: 0, y: 16, height: 0 }}
+                animate={{ opacity: 1, y: 0, height: 'auto' }}
+                exit={{ opacity: 0, y: -16, height: 0 }}
                 transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                 className="mx-auto mt-10 max-w-2xl overflow-hidden rounded-3xl border border-white/10 bg-[#100e16]"
               >
@@ -233,6 +234,7 @@ export default function SectorDemo() {
                   </div>
                 </div>
               </motion.div>
+              )}
             </AnimatePresence>
 
             {/* Live talk CTA */}

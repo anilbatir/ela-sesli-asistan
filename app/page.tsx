@@ -1,7 +1,6 @@
 import Navbar from "@/components/navbar";
 import Hero from "@/components/sections/hero";
 import SectorDemo from "@/components/sections/sector-demo";
-import ElaSection from "@/components/sections/ela-section";
 import ElaShowcase from "@/components/sections/ela-showcase";
 import Services from "@/components/sections/services";
 import Process from "@/components/sections/process";
@@ -16,7 +15,6 @@ export default function Home() {
       <main className="flex-1">
         <Hero />
         <SectorDemo />
-        <ElaSection />
         <ElaShowcase />
         <Services />
         <Process />
