@@ -24,6 +24,7 @@ interface Sector {
   customer: string;
   ela: string;
   duration: string;
+  color: string;
   // audioSrc?: string — ses kaydı eklendiğinde buraya dosya yolu verilecek
 }
 
@@ -36,6 +37,7 @@ const sectors: Sector[] = [
     customer: 'Kargom ne zaman elime ulaşır?',
     ela: 'Kargonuz şu anda dağıtım merkezinde, yarın öğleden önce adresinize teslim edilecek.',
     duration: '0:24',
+    color: '#38bdf8',
   },
   {
     icon: FaTooth,
@@ -45,6 +47,7 @@ const sectors: Sector[] = [
     customer: 'Yarın için diş kontrolü randevusu alabilir miyim?',
     ela: 'Tabii, yarın saat 14:00 müsait — sizi bu saate alalım mı?',
     duration: '0:19',
+    color: '#2dd4bf',
   },
   {
     icon: Sparkles,
@@ -54,6 +57,7 @@ const sectors: Sector[] = [
     customer: 'Cuma günü cilt bakımı için yer var mı?',
     ela: 'Cuma 11:00’de yerimiz var, hemen rezervasyon oluşturuyorum.',
     duration: '0:21',
+    color: '#f472b6',
   },
   {
     icon: FaHandSparkles,
@@ -63,6 +67,7 @@ const sectors: Sector[] = [
     customer: 'Bugün akşama doğru manikür yaptırabilir miyim?',
     ela: 'Bugün saat 18:30’da yer açık, sizi bekleriz.',
     duration: '0:17',
+    color: '#e879f9',
   },
   {
     icon: HardHat,
@@ -72,6 +77,7 @@ const sectors: Sector[] = [
     customer: 'Yeni projenizdeki daire fiyatları nedir?',
     ela: '2+1 daireler 3.2 milyon TL’den başlıyor, size detaylı katalog gönderebilirim.',
     duration: '0:28',
+    color: '#f59e0b',
   },
   {
     icon: Dumbbell,
@@ -81,6 +87,7 @@ const sectors: Sector[] = [
     customer: 'Aylık üyelik ücretiniz ne kadar?',
     ela: 'Aylık üyeliğimiz 1200 TL, ilk hafta ücretsiz deneme hakkınız var.',
     duration: '0:22',
+    color: '#fb923c',
   },
   {
     icon: UtensilsCrossed,
@@ -90,6 +97,7 @@ const sectors: Sector[] = [
     customer: 'Bu akşam 4 kişilik masa ayırtabilir miyim?',
     ela: 'Tabii, akşam 20:00 için deniz manzaralı bir masa ayırıyorum.',
     duration: '0:20',
+    color: '#4ade80',
   },
   {
     icon: BedDouble,
@@ -99,6 +107,7 @@ const sectors: Sector[] = [
     customer: 'Bu hafta sonu için 2 kişilik oda müsait mi?',
     ela: 'Tabii ki, cumartesiye deniz manzaralı bir odamız müsait — rezervasyonunuzu hemen oluşturayım mı?',
     duration: '0:29',
+    color: '#a78bfa',
   },
 ];
 
@@ -147,20 +156,32 @@ export default function SectorDemo() {
                   <button
                     key={s.label}
                     onClick={() => setActive(i)}
+                    style={
+                      isActive
+                        ? {
+                            borderColor: `${s.color}80`,
+                            background: `linear-gradient(180deg, ${s.color}26, ${s.color}0d)`,
+                            boxShadow: `0 12px 30px -14px ${s.color}66`,
+                          }
+                        : undefined
+                    }
                     className={`flex flex-col items-center gap-3 rounded-2xl border px-4 py-6 text-center text-sm font-semibold transition-all duration-300 ${
                       isActive
-                        ? 'border-violet-500/50 bg-gradient-to-b from-violet-500/20 to-indigo-500/10 text-white shadow-lg shadow-violet-500/10'
+                        ? 'text-white'
                         : 'border-white/10 bg-white/[0.03] text-gray-400 hover:border-white/20 hover:bg-white/[0.06]'
                     }`}
                   >
                     <span
-                      className={`flex h-14 w-14 items-center justify-center rounded-2xl border transition-all duration-300 ${
+                      style={
                         isActive
-                          ? 'border-violet-400/50 bg-gradient-to-br from-violet-500/30 to-indigo-500/20'
-                          : 'border-white/10 bg-white/5'
+                          ? { borderColor: `${s.color}80`, background: `linear-gradient(135deg, ${s.color}4d, ${s.color}26)` }
+                          : undefined
+                      }
+                      className={`flex h-14 w-14 items-center justify-center rounded-2xl border transition-all duration-300 ${
+                        isActive ? '' : 'border-white/10 bg-white/5'
                       }`}
                     >
-                      <Icon className={`h-7 w-7 ${isActive ? 'text-violet-300' : 'text-gray-500'}`} />
+                      <Icon className="h-7 w-7" style={{ color: s.color, opacity: isActive ? 1 : 0.75 }} />
                     </span>
                     <span className="leading-tight">{s.label}</span>
                   </button>
