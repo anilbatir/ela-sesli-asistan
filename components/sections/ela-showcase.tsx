@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Quote, Star, PhoneCall, CheckCircle2 } from 'lucide-react';
+import { Quote, Star, ArrowRight, CheckCircle2 } from 'lucide-react';
 import Image from 'next/image';
 
 const benefits = [
@@ -104,11 +104,11 @@ export default function ElaShowcase() {
             </ul>
 
             <a
-              href="#iletisim"
-              className="group mt-10 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-violet-600 to-indigo-600 px-8 py-4 text-base font-semibold text-white shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-105"
+              href="#nasil-calisir"
+              className="group mt-10 inline-flex items-center gap-2 text-base font-semibold text-violet-300 transition-colors duration-300 hover:text-violet-200"
             >
-              <PhoneCall className="h-5 w-5" />
-              Ela'yı Hemen Deneyin
+              Nasıl Çalışır'ı İncele
+              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
             </a>
           </motion.div>
         </div>
