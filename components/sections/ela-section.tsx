@@ -212,32 +212,6 @@ export default function ElaSection() {
                   hangi kanaldan yazarsanız yazın, Ela cevap verir
                 </span>
               </div>
-
-              <div className="mt-4 flex flex-wrap gap-3">
-                {['32 Dil', '7/24', '0.2 Saniye'].map((tag) => (
-                  <span key={tag} className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-gray-300">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-
-              {/* Mini floating tags */}
-              <div className="mt-8 flex flex-wrap gap-4">
-                <div className="flex items-center gap-2 rounded-2xl border border-violet-500/20 bg-violet-500/10 px-4 py-3">
-                  <Globe className="h-5 w-5 text-violet-400" />
-                  <div>
-                    <p className="text-sm font-bold text-violet-300">32 Dil</p>
-                    <p className="text-xs text-gray-500">EN · TR · DE · AR +28</p>
-                  </div>
-                </div>
-                <div className="flex items-center gap-2 rounded-2xl border border-indigo-500/20 bg-indigo-500/10 px-4 py-3">
-                  <Zap className="h-5 w-5 text-indigo-400" />
-                  <div>
-                    <p className="text-sm font-bold text-indigo-300">0.2 Saniye</p>
-                    <p className="text-xs text-gray-500">Ortalama yanıt</p>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </motion.div>
