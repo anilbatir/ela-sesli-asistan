@@ -1,8 +1,9 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, PhoneCall, MessageCircle, Zap } from 'lucide-react';
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
 
 const container = {
   hidden: {},
@@ -13,7 +14,26 @@ const item = {
   show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] as const } },
 };
 
+const headlines = [
+  { line1: 'İşletmenizin', line2: 'Telefonuna', line3: 'Ela Cevap Veriyor' },
+  { line1: 'WhatsApp’ınıza', line2: 'Anında', line3: 'Ela Yanıt Veriyor' },
+  { line1: 'Instagram DM’lerinize', line2: '7/24', line3: 'Ela Cevap Veriyor' },
+  { line1: 'Müşteri Randevularını', line2: 'Otomatik', line3: 'Ela Oluşturuyor' },
+  { line1: 'Yabancı Müşterilerinizle', line2: '32 Dilde', line3: 'Ela Konuşuyor' },
+];
+
 export default function Hero() {
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setIndex((i) => (i + 1) % headlines.length);
+    }, 3200);
+    return () => clearInterval(timer);
+  }, []);
+
+  const headline = headlines[index];
+
   return (
     <section className="relative flex min-h-screen items-center overflow-hidden px-6 pt-28 pb-16">
       {/* Background */}
@@ -29,13 +49,27 @@ export default function Hero() {
             <span>Sesli Yapay Zeka Asistanı</span>
           </motion.div>
 
-          <motion.h1 variants={item} className="font-display text-5xl font-bold leading-[1.05] tracking-tight text-white sm:text-6xl xl:text-7xl">
-            <span className="text-glow">İşletmenizin</span>{' '}
-            <span className="bg-gradient-to-r from-violet-400 to-indigo-400 bg-clip-text text-transparent">
-              Telefonuna
-            </span>
-            <br />
-            <span className="text-glow-accent">Ela Cevap Veriyor</span>
+          <motion.h1
+            variants={item}
+            className="min-h-[190px] font-display text-5xl font-bold leading-[1.05] tracking-tight text-white sm:min-h-[230px] sm:text-6xl xl:min-h-[280px] xl:text-7xl"
+          >
+            <AnimatePresence mode="wait">
+              <motion.span
+                key={index}
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -16 }}
+                transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                className="block"
+              >
+                <span className="text-glow">{headline.line1}</span>{' '}
+                <span className="bg-gradient-to-r from-violet-400 to-indigo-400 bg-clip-text text-transparent">
+                  {headline.line2}
+                </span>
+                <br />
+                <span className="text-glow-accent">{headline.line3}</span>
+              </motion.span>
+            </AnimatePresence>
           </motion.h1>
 
           <motion.p variants={item} className="mt-6 max-w-xl text-lg text-gray-400 md:text-xl">
