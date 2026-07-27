@@ -6,17 +6,22 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import {
   ArrowDown,
   ArrowRight,
+  AtSign,
+  BarChart3,
   Building2,
-  Camera,
+  Calendar,
+  ChevronDown,
+  Database,
+  Globe,
   Home as HomeIcon,
-  KeyRound,
   MessageCircle,
   Phone,
   Scale,
   Scissors,
   Send,
-  Sparkles,
+  Settings2,
   Stethoscope,
+  UserCheck,
   UtensilsCrossed,
   type LucideIcon,
 } from "lucide-react";
@@ -37,7 +42,9 @@ const COPY = {
   tr: {
     nav: [
       { label: "Hikaye", href: "#hikaye" },
+      { label: "Hizmetler", href: "#hizmetler" },
       { label: "Sektörler", href: "#sektorler" },
+      { label: "Fiyatlandırma", href: "#fiyatlandirma" },
       { label: "İletişim", href: "#iletisim" },
     ],
     heroSub: "Ela cevaplar. İnsan gibi konuşur, hiç yorulmaz, hiçbir fırsatı kaçırmaz.",
@@ -52,24 +59,40 @@ const COPY = {
     heroLinkSecondary: "İletişime geç",
     cta: "Hemen Dene",
     scroll: "Kaydır",
-    marquee: ["7/24 kesintisiz", "İnsan gibi doğal", "Anında cevap", "Sıfır kaçan arama", "Türkçe & İngilizce"],
+    marquee: ["7/24 kesintisiz", "İnsan gibi doğal", "Anında cevap", "Sıfır kaçan arama", "32 dilde konuşur"],
     storyKicker: "Neden Ela?",
-    gearSteps: [
+    storyTitle: "Özellikleriyle tanışın.",
+    storySub: "Kaydırdıkça Ela'nın öne çıkan yetenekleri kartlardan açılıp yerine yerleşiyor.",
+    storyCards: [
       {
-        title: "Karşınızda Ela",
-        desc: "Şirketinizin 7/24 kesintisiz çalışan, hem sesli hem yazılı iletişim kurabilen akıllı yapay zeka asistanı. Müşterilerinizi insan kalitesinde karşılar, soruları saniyeler içinde yanıtlar.",
+        id: "guvenlik",
+        title: "Güvenli Altyapı",
+        desc: "Tüm görüşme kayıtları şifreli saklanır, yalnızca yetkilendirdiğiniz ekip üyeleri erişebilir.",
       },
       {
-        title: "Akıllı Rezervasyon Yönetimi",
-        desc: "Otel aramalarında boş odaları ve tarihleri anında sorgular, rezervasyonları tamamlar. Restoranlar için masa uygunluğunu kontrol eder ve yer ayırtır.",
+        id: "dogal",
+        title: "Doğal İletişim",
+        desc: "32 dilde yerel aksanla, duraksamadan konuşur; talebe göre yeni diller de eklenebilir. Karşınızdaki bir yazılım değil, işini iyi yapan biri gibi hissettirir.",
       },
       {
-        title: "Satış ve Ön Görüşme Asistanı",
-        desc: "İnşaat projelerinizdeki daire tiplerini (2+1, 3+1) ve güncel fiyatları müşteriye aktarır. Satış ekibinizin araması için potansiyel müşterilerden telefon numaralarını ve taleplerini toplar.",
+        id: "akilli",
+        title: "Akıllı ve Öğrenen",
+        desc: "Her görüşmeden öğrenir, senaryolarını işletmenizin diline ve akışına göre sürekli geliştirir.",
       },
       {
-        title: "Her Kanalda, Her An Aktif",
-        desc: "Ela sadece telefon aramalarında değil; WhatsApp, Instagram ve sosyal medya platformlarınızda da yazılı olarak müşterilerinizle buluşur. Tüm kanalları tek merkezden yönetir.",
+        id: "yedi24",
+        title: "7/24 Ulaşılabilir",
+        desc: "Gece yarısı, hafta sonu, yoğun saatler… Ela her aramaya ilk çalışta cevap verir, hiçbir fırsat kaçmaz.",
+      },
+      {
+        id: "kanal",
+        title: "Her Kanalda Aktif",
+        desc: "Telefon aramalarının yanında WhatsApp ve Instagram'da da yazılı olarak müşterilerinizle buluşur.",
+      },
+      {
+        id: "rezervasyon",
+        title: "Rezervasyon Entegrasyonu",
+        desc: "Mevcut rezervasyon veya takvim sisteminize bağlanır, uygunluğu gerçek zamanlı kontrol eder.",
       },
     ],
     features: [
@@ -78,12 +101,12 @@ const COPY = {
         desc: "Gece yarısı, hafta sonu, yoğun saatler… Ela her aramaya ilk çalışta cevap verir. Rezervasyon fırsatları artık meşgul sinyaline takılmaz.",
       },
       {
-        title: "İnsan gibi konuşur",
-        desc: "Doğal, sıcak, akıcı. Misafirleriniz karşılarında bir yapay zeka olduğunu fark etmez — sadece iyi ağırlandıklarını hisseder.",
+        title: "3 saniyede cevap verir",
+        desc: "Arama başladığı anda hatta. Misafirleriniz beklemez, sıraya girmez — Ela ilk zilde karşılar.",
       },
       {
-        title: "Zamanınızı geri verir",
-        desc: "Telefon trafiği Ela'ya, misafir deneyimi ekibinize. İş yükü azalır, odak büyür, verimlilik artar.",
+        title: "İnsan gibi konuşur",
+        desc: "Doğal, sıcak, akıcı. Misafirleriniz karşılarında bir yapay zeka olduğunu fark etmez — sadece iyi ağırlandıklarını hisseder.",
       },
     ],
     statValue: "7/24",
@@ -102,6 +125,108 @@ const COPY = {
     play: "Dinle",
     playing: "Çalıyor…",
     comingSoon: "Demo yakında",
+    channelStack: {
+      phone: "Telefon Hattı",
+      whatsapp: "WhatsApp",
+      instagram: "Instagram",
+      web: "Web Sitesi",
+      booking: "Rezervasyon Sistemleri",
+      crm: "CRM",
+    } as Record<string, string>,
+    servicesKicker: "Neler Sunuyoruz",
+    servicesTitle: "Tek asistan,",
+    servicesTitleAccent: "her kanal.",
+    servicesSub: "Ela'yı işletmenizin ihtiyacına göre kurar, mevcut sistemlerinizle entegre ederiz.",
+    services: {
+      voice: {
+        title: "Sesli Arama Yönetimi",
+        desc: "Gelen aramaları karşılar, insan gibi doğal bir sesle konuşur, hiç meşgul çalmaz.",
+      },
+      text: {
+        title: "Yazılı Mesaj Desteği",
+        desc: "WhatsApp ve Instagram'dan gelen mesajlara anında, doğru tonda yanıt verir.",
+      },
+      reservation: {
+        title: "Rezervasyon Entegrasyonu",
+        desc: "Mevcut rezervasyon veya takvim sisteminize bağlanır, uygunluğu gerçek zamanlı kontrol eder.",
+      },
+      sales: {
+        title: "Satış Ön Değerlendirmesi",
+        desc: "Potansiyel müşterinin ihtiyacını anlar, iletişim bilgilerini toplar, ekibinize aktarır.",
+      },
+      reporting: {
+        title: "Raporlama & Analiz",
+        desc: "Her görüşmenin özetini çıkarır, haftalık performans raporunu ekibinize sunar.",
+      },
+      custom: {
+        title: "Özel Senaryo Kurulumu",
+        desc: "İşletmenizin diline ve akışına göre özelleştirilmiş konuşma senaryoları hazırlarız.",
+      },
+    } as Record<string, { title: string; desc: string }>,
+    howItWorksKicker: "Nasıl Başlarsınız",
+    howItWorks: [
+      { title: "Demo dinleyin", desc: "Sektörünüze uygun örnek bir görüşmeyi hemen dinleyin." },
+      { title: "Ekibimiz kurar", desc: "Rezervasyon sisteminizle entegre eder, senaryoları sizinle birlikte kurgular." },
+      { title: "Ela devreye girer", desc: "Aramalar ve mesajlar artık hiç kaçmaz, siz işinize odaklanırsınız." },
+    ],
+    pricingKicker: "Fiyatlandırma",
+    pricingTitle: "Basit paketler,",
+    pricingTitleAccent: "net fiyatlar.",
+    pricingSub: "Aşağıdaki rakamlar örnek amaçlıdır — işletmenize özel teklif için bizimle görüşün.",
+    pricingNote: "* Gösterilen fiyatlar örnektir, nihai teklif görüşme sonrası netleşir.",
+    pricingPlans: [
+      {
+        name: "Başlangıç",
+        price: "₺20.000",
+        period: "/ay",
+        desc: "Tek şube, tek kanal ile başlamak isteyen işletmeler için.",
+        features: ["1 telefon hattı", "Sesli + yazılı destek", "Aylık performans raporu", "E-posta desteği"],
+        cta: "Başlayın",
+        highlighted: false,
+      },
+      {
+        name: "Kurumsal",
+        price: "Özel Teklif",
+        period: "",
+        desc: "Çoklu şube, çoklu kanal ve özel entegrasyon ihtiyacı olan işletmeler için.",
+        features: [
+          "Sınırsız hat / şube",
+          "Tüm kanallar (telefon, WhatsApp, Instagram)",
+          "Özel senaryo kurulumu",
+          "Öncelikli destek",
+        ],
+        cta: "Teklif alın",
+        highlighted: true,
+      },
+    ],
+    faqKicker: "Sıkça Sorulanlar",
+    faqTitle: "Aklınıza takılanlar.",
+    faqItems: [
+      {
+        q: "Kurulum ne kadar sürer?",
+        a: "Çoğu işletme için 48 saat içinde canlıya alıyoruz. Karmaşık entegrasyonlarda bu süre birkaç güne çıkabilir.",
+      },
+      {
+        q: "Mevcut telefon hattımla çalışır mı?",
+        a: "Evet, mevcut numaranızı yönlendirerek ya da yeni bir hat tanımlayarak Ela'yı devreye alabiliriz.",
+      },
+      {
+        q: "Hangi dillerde konuşuyor?",
+        a: "32 dili doğal aksanla konuşuyor, talebe göre istediğiniz yeni dili de ekleyebiliyoruz.",
+      },
+      {
+        q: "Verilerimiz güvende mi?",
+        a: "Tüm görüşme kayıtları şifreli saklanır, yalnızca yetkilendirdiğiniz ekip üyeleri erişebilir.",
+      },
+      {
+        q: "İstediğim zaman iptal edebilir miyim?",
+        a: "Evet, aboneliğinizi istediğiniz an durdurabilir veya iptal edebilirsiniz.",
+      },
+      {
+        q: "Hangi sektörler için uygun?",
+        a: "Otel, restoran, klinik, kuaför, avukatlık ve emlak gibi randevu/rezervasyon odaklı her sektörde kullanılabiliyor.",
+      },
+    ],
     formTitle: "Ela'yı işletmenizde deneyin",
     formSub: "Bilgilerinizi bırakın, ekibimiz sizinle iletişime geçsin.",
     fBusiness: "İşletme adı",
@@ -118,7 +243,9 @@ const COPY = {
   en: {
     nav: [
       { label: "Story", href: "#hikaye" },
+      { label: "Services", href: "#hizmetler" },
       { label: "Industries", href: "#sektorler" },
+      { label: "Pricing", href: "#fiyatlandirma" },
       { label: "Contact", href: "#iletisim" },
     ],
     heroSub: "Ela answers. Speaks like a human, never tires, never misses an opportunity.",
@@ -133,24 +260,40 @@ const COPY = {
     heroLinkSecondary: "Get in touch",
     cta: "Try now",
     scroll: "Scroll",
-    marquee: ["24/7 always on", "Naturally human", "Instant answers", "Zero missed calls", "Turkish & English"],
+    marquee: ["24/7 always on", "Naturally human", "Instant answers", "Zero missed calls", "Speaks 32 languages"],
     storyKicker: "Why Ela?",
-    gearSteps: [
+    storyTitle: "Meet the features.",
+    storySub: "Scroll and watch Ela's key abilities unfold from the stack into place.",
+    storyCards: [
       {
-        title: "Meet Ela",
-        desc: "Your company's AI assistant that works around the clock, communicating by both voice and text. It welcomes your customers with human-level quality and answers questions within seconds.",
+        id: "guvenlik",
+        title: "Secure Infrastructure",
+        desc: "All call records are stored encrypted and only accessible to team members you authorize.",
       },
       {
-        title: "Smart Reservation Management",
-        desc: "Instantly checks room availability and dates for hotel calls and completes reservations. For restaurants, it checks table availability and books a spot.",
+        id: "dogal",
+        title: "Natural Communication",
+        desc: "Speaks 32 languages with a local accent, without hesitation, and new languages can be added on request. It feels like talking to someone good at their job, not a piece of software.",
       },
       {
-        title: "Sales & Pre-Screening Assistant",
-        desc: "Shares apartment types (2+1, 3+1) and current prices for your construction projects. Collects phone numbers and requests from potential customers for your sales team to call.",
+        id: "akilli",
+        title: "Smart & Learning",
+        desc: "Learns from every conversation and keeps refining its scenarios to match your business's tone and flow.",
       },
       {
-        title: "Active on Every Channel, All the Time",
-        desc: "Ela doesn't just handle phone calls — she also meets your customers in writing on WhatsApp, Instagram, and social media. All channels managed from one place.",
+        id: "yedi24",
+        title: "Available 24/7",
+        desc: "Midnight, weekends, rush hours… Ela answers every call on the first ring — no opportunity slips through.",
+      },
+      {
+        id: "kanal",
+        title: "Active on Every Channel",
+        desc: "Alongside phone calls, it meets your customers in writing on WhatsApp and Instagram too.",
+      },
+      {
+        id: "rezervasyon",
+        title: "Reservation Integration",
+        desc: "Connects to your existing booking or calendar system and checks availability in real time.",
       },
     ],
     features: [
@@ -159,12 +302,12 @@ const COPY = {
         desc: "Midnight, weekends, rush hours… Ela answers every call on the first ring. Reservation opportunities never hit a busy signal again.",
       },
       {
-        title: "Speaks like a human",
-        desc: "Natural, warm, fluent. Your guests never realize they're talking to an AI — they just feel well taken care of.",
+        title: "Answers within 3 seconds",
+        desc: "On the line the moment a call starts. No hold music, no queue — Ela picks up on the first ring.",
       },
       {
-        title: "Gives your time back",
-        desc: "Phone traffic goes to Ela, guest experience goes to your team. Less workload, more focus, more productivity.",
+        title: "Speaks like a human",
+        desc: "Natural, warm, fluent. Your guests never realize they're talking to an AI — they just feel well taken care of.",
       },
     ],
     statValue: "24/7",
@@ -183,6 +326,108 @@ const COPY = {
     play: "Listen",
     playing: "Playing…",
     comingSoon: "Demo soon",
+    channelStack: {
+      phone: "Phone Line",
+      whatsapp: "WhatsApp",
+      instagram: "Instagram",
+      web: "Website Chat",
+      booking: "Booking Systems",
+      crm: "CRM",
+    } as Record<string, string>,
+    servicesKicker: "What We Offer",
+    servicesTitle: "One assistant,",
+    servicesTitleAccent: "every channel.",
+    servicesSub: "We set Ela up around your business and connect it to the systems you already use.",
+    services: {
+      voice: {
+        title: "Voice Call Handling",
+        desc: "Answers every incoming call and speaks with a natural, human-like voice — never busy.",
+      },
+      text: {
+        title: "Written Message Support",
+        desc: "Replies instantly and in the right tone to WhatsApp and Instagram messages.",
+      },
+      reservation: {
+        title: "Reservation Integration",
+        desc: "Connects to your existing booking or calendar system and checks availability in real time.",
+      },
+      sales: {
+        title: "Sales Pre-Screening",
+        desc: "Understands what a potential customer needs, collects contact details, and hands off to your team.",
+      },
+      reporting: {
+        title: "Reporting & Analytics",
+        desc: "Summarizes every conversation and delivers a weekly performance report to your team.",
+      },
+      custom: {
+        title: "Custom Scenario Setup",
+        desc: "We build conversation flows tailored to your business's tone and process.",
+      },
+    } as Record<string, { title: string; desc: string }>,
+    howItWorksKicker: "How You Start",
+    howItWorks: [
+      { title: "Listen to a demo", desc: "Hear a real sample call for your industry right away." },
+      { title: "We set it up", desc: "Our team integrates your booking system and builds the conversation flows with you." },
+      { title: "Ela takes over", desc: "Calls and messages stop slipping through — you focus on your business." },
+    ],
+    pricingKicker: "Pricing",
+    pricingTitle: "Simple plans,",
+    pricingTitleAccent: "clear pricing.",
+    pricingSub: "The figures below are for illustration — reach out for a quote tailored to your business.",
+    pricingNote: "* Prices shown are examples; the final quote is confirmed after a call.",
+    pricingPlans: [
+      {
+        name: "Starter",
+        price: "₺20,000",
+        period: "/mo",
+        desc: "For businesses starting with a single location and channel.",
+        features: ["1 phone line", "Voice + text support", "Monthly performance report", "Email support"],
+        cta: "Get started",
+        highlighted: false,
+      },
+      {
+        name: "Enterprise",
+        price: "Custom Quote",
+        period: "",
+        desc: "For multi-location businesses with multiple channels and custom integration needs.",
+        features: [
+          "Unlimited lines / locations",
+          "All channels (phone, WhatsApp, Instagram)",
+          "Custom scenario setup",
+          "Priority support",
+        ],
+        cta: "Request a quote",
+        highlighted: true,
+      },
+    ],
+    faqKicker: "FAQ",
+    faqTitle: "Common questions.",
+    faqItems: [
+      {
+        q: "How long does setup take?",
+        a: "We go live within 48 hours for most businesses. Complex integrations may take a few days longer.",
+      },
+      {
+        q: "Will it work with my existing phone line?",
+        a: "Yes — we can forward your current number or set up a new line to bring Ela online.",
+      },
+      {
+        q: "What languages does it speak?",
+        a: "It speaks 32 languages with a natural accent, and we can add any other language you need on request.",
+      },
+      {
+        q: "Is our data secure?",
+        a: "All call records are stored encrypted and only accessible to team members you authorize.",
+      },
+      {
+        q: "Can I cancel anytime?",
+        a: "Yes, you can pause or cancel your subscription whenever you'd like.",
+      },
+      {
+        q: "Which industries is it suited for?",
+        a: "Hotels, restaurants, clinics, salons, law firms, and real estate — any booking or appointment-driven business.",
+      },
+    ],
     formTitle: "Try Ela at your business",
     formSub: "Leave your details and our team will reach out.",
     fBusiness: "Business name",
@@ -207,56 +452,44 @@ const SECTOR_LIST: { id: string; icon: LucideIcon; audio: string }[] = [
   { id: "realestate", icon: HomeIcon, audio: "/demo-audio/realestate.mp3" },
 ];
 
-const GEAR_STEPS_COUNT = COPY.tr.gearSteps.length;
+/* Hikaye: kart yığını için fotoğrafların görsel yolu */
+const STORY_PHOTO_SRC: Record<string, string> = {
+  guvenlik: "/ela/guvenli-altyapi.png",
+  dogal: "/ela/dogal-iletisim.png",
+  akilli: "/ela/akilli-ogrenen.png",
+  yedi24: "/ela/7-24-ulasilabilir.png",
+  kanal: "/ela/her-kanalda-aktif.png",
+  rezervasyon: "/ela/rezervasyon-entegrasyonu.png",
+};
 
-/* Çark bölümü: her adım için sol sütundaki dairesel görsel */
-function GearVisual({ step }: { step: number }) {
-  const baseCircle =
-    "relative flex h-56 w-56 items-center justify-center rounded-full border border-slate-200/80 bg-white/70 shadow-xl shadow-violet-500/10 backdrop-blur-md sm:h-64 sm:w-64";
-  const satellite =
-    "absolute flex h-10 w-10 items-center justify-center rounded-full border border-slate-200/80 bg-white shadow-lg shadow-violet-500/10";
+/* Bazı kareler merkezden kırpınca Ela'yı tam ortalamıyor; kart bazlı odak noktası */
+const STORY_PHOTO_POSITION: Record<string, string> = {
+  rezervasyon: "95% center",
+};
 
-  if (step === 0) {
-    return (
-      <div className="relative flex h-56 w-56 items-center justify-center sm:h-64 sm:w-64">
-        <span className="animate-glow-pulse absolute inset-0 rounded-full bg-gradient-to-br from-violet-400/60 to-fuchsia-400/50" />
-        <span className="absolute inset-4 rounded-full border border-white/80 bg-white/70 shadow-2xl shadow-violet-500/20 backdrop-blur-md" />
-        <Sparkles className="relative h-16 w-16 text-violet-600" strokeWidth={1.3} />
-      </div>
-    );
-  }
-  if (step === 1) {
-    return (
-      <div className={baseCircle}>
-        <span className="absolute inset-0 rounded-full bg-gradient-to-br from-violet-200/40 to-transparent" />
-        <KeyRound className="relative h-14 w-14 text-violet-600" strokeWidth={1.4} />
-      </div>
-    );
-  }
-  if (step === 2) {
-    return (
-      <div className={baseCircle}>
-        <span className="absolute inset-0 rounded-full bg-gradient-to-br from-cyan-200/40 to-transparent" />
-        <Building2 className="relative h-14 w-14 text-cyan-600" strokeWidth={1.4} />
-        <span className={`${satellite} -right-2 -bottom-2`}>
-          <MessageCircle className="h-4.5 w-4.5 text-fuchsia-500" strokeWidth={1.6} />
-        </span>
-      </div>
-    );
-  }
-  return (
-    <div className={baseCircle}>
-      <span className="absolute inset-0 rounded-full bg-gradient-to-br from-fuchsia-200/40 to-transparent" />
-      <Phone className="relative h-14 w-14 text-violet-600" strokeWidth={1.4} />
-      <span className={`${satellite} top-3 -right-3`}>
-        <MessageCircle className="h-4 w-4 text-emerald-500" strokeWidth={1.6} />
-      </span>
-      <span className={`${satellite} bottom-3 -left-3`}>
-        <Camera className="h-4 w-4 text-pink-500" strokeWidth={1.6} />
-      </span>
-    </div>
-  );
-}
+/* Bazı fotoğraflarda Ela çok küçük kalıyor; kart bazlı yakınlaştırma */
+const STORY_PHOTO_SCALE: Record<string, number> = {
+  dogal: 1.4,
+  rezervasyon: 1.4,
+};
+
+const CHANNEL_STACK: { id: string; icon: LucideIcon }[] = [
+  { id: "phone", icon: Phone },
+  { id: "whatsapp", icon: MessageCircle },
+  { id: "instagram", icon: AtSign },
+  { id: "web", icon: Globe },
+  { id: "booking", icon: Calendar },
+  { id: "crm", icon: Database },
+];
+
+const SERVICE_LIST: { id: string; icon: LucideIcon }[] = [
+  { id: "voice", icon: Phone },
+  { id: "text", icon: MessageCircle },
+  { id: "reservation", icon: Calendar },
+  { id: "sales", icon: UserCheck },
+  { id: "reporting", icon: BarChart3 },
+  { id: "custom", icon: Settings2 },
+];
 
 /* ------------------------------------------------------------------ */
 /*  Sayfa                                                              */
@@ -273,6 +506,7 @@ export default function Home() {
   const [unavailable, setUnavailable] = useState<string | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [submitted, setSubmitted] = useState(false);
+  const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   /* ---------------- Hero: dönen başlık & soru çubuğu ---------------- */
   const [featureIndex, setFeatureIndex] = useState(0);
@@ -446,28 +680,54 @@ export default function Home() {
       /* Marquee: sonsuz akış */
       gsap.to(".marquee-track", { xPercent: -50, duration: 24, repeat: -1, ease: "none" });
 
-      /* Hikaye: çark bölümü — sol görsel akış aşağı, sağ metin akış yukarı zıt yönde kayar */
-      const gearSteps = GEAR_STEPS_COUNT - 1;
-      gsap.set(".gear-track-right", { yPercent: -gearSteps * 100 });
+      /* Hikaye: kartlar merkezde karışık bir deste gibi başlar, scroll ile açılıp
+         kendi grid konumlarına düzleşerek yerleşir (FLIP tekniği). */
+      const storyGrid = document.querySelector<HTMLElement>(".story-grid");
+      const storyCircles = gsap.utils.toArray<HTMLElement>(".story-card-circle");
+      const STACK_JITTER = [-14, 10, -20, 16, -9, 22]; // derece — deste hâlindeki rastgele açılar
 
-      gsap
-        .timeline({
+      if (storyGrid && storyCircles.length) {
+        const gridBox = storyGrid.getBoundingClientRect();
+        const stackCenterX = gridBox.width / 2;
+        const stackCenterY = gridBox.height / 2;
+
+        const offsets = storyCircles.map((el) => {
+          const box = el.getBoundingClientRect();
+          const elCenterX = box.left - gridBox.left + box.width / 2;
+          const elCenterY = box.top - gridBox.top + box.height / 2;
+          return { dx: stackCenterX - elCenterX, dy: stackCenterY - elCenterY };
+        });
+
+        storyCircles.forEach((el, i) => {
+          gsap.set(el, {
+            x: offsets[i].dx,
+            y: offsets[i].dy,
+            rotate: STACK_JITTER[i % STACK_JITTER.length],
+            scale: 0.82,
+            zIndex: storyCircles.length - i,
+          });
+        });
+        gsap.set(".story-caption", { autoAlpha: 0, y: 14 });
+
+        const storyTl = gsap.timeline({
           scrollTrigger: {
-            trigger: ".gear-pin",
+            trigger: ".story-pin",
             start: "top top",
-            end: `+=${gearSteps * 100}%`,
+            end: "+=120%",
             pin: true,
-            scrub: 0.6,
-            snap: {
-              snapTo: 1 / gearSteps,
-              duration: { min: 0.3, max: 0.6 },
-              ease: "power2.inOut",
-            },
+            scrub: 0.7,
           },
-        })
-        .to(".gear-track-left", { yPercent: -gearSteps * 100, ease: "none", duration: 1 }, 0)
-        .to(".gear-track-right", { yPercent: 0, ease: "none", duration: 1 }, 0)
-        .to(".gear-circle", { rotation: 360, ease: "none", duration: 1 }, 0);
+        });
+
+        storyCircles.forEach((el, i) => {
+          const t = i * 0.13;
+          storyTl.to(el, { x: 0, y: 0, rotate: 0, scale: 1, duration: 0.6, ease: "power2.out" }, t);
+          const caption = el.closest(".story-cell")?.querySelector(".story-caption");
+          if (caption) {
+            storyTl.to(caption, { autoAlpha: 1, y: 0, duration: 0.5, ease: "power2.out" }, t + 0.18);
+          }
+        });
+      }
 
       /* Dev istatistik: scroll ile ölçeklenen sahne */
       gsap.fromTo(
@@ -489,6 +749,18 @@ export default function Home() {
         ease: "power3.out",
         stagger: 0.09,
         scrollTrigger: { trigger: ".sector-grid", start: "top 78%" },
+      });
+
+      /* Genel kart gridleri: kademeli yükseliş (services, trust, pricing, how-it-works, channel stack) */
+      gsap.utils.toArray<HTMLElement>(".card-grid").forEach((grid) => {
+        gsap.from(grid.querySelectorAll(".stagger-card"), {
+          y: 70,
+          autoAlpha: 0,
+          duration: 0.85,
+          ease: "power3.out",
+          stagger: 0.08,
+          scrollTrigger: { trigger: grid, start: "top 80%" },
+        });
       });
 
       /* Bölüm başlıkları */
@@ -633,16 +905,6 @@ export default function Home() {
           >
             {t.langToggle}
           </button>
-          <a
-            href="#iletisim"
-            onMouseEnter={(e) => magnetEnter(e)}
-            onMouseMove={(e) => magnetMove(e)}
-            onMouseLeave={(e) => magnetLeave(e)}
-            className="group inline-flex items-center gap-1.5 rounded-full bg-slate-900 px-5 py-2 text-sm font-semibold text-white"
-          >
-            {t.cta}
-            <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-          </a>
         </div>
       </header>
 
@@ -680,7 +942,7 @@ export default function Home() {
             <div className="hero-left-item min-h-[2.3em] sm:min-h-[2.6em] lg:min-h-[3.3em]">
               <h1
                 key={`${lang}-${featureIndex}`}
-                className="hero-rotator animate-fade-in-up bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-500 bg-clip-text font-heading text-4xl leading-[1.08] font-medium tracking-tight text-transparent sm:text-5xl lg:text-[3.35rem]"
+                className="hero-rotator animate-fade-in-up bg-gradient-to-r from-violet-600 via-fuchsia-500 to-cyan-500 bg-clip-text pb-1 font-heading text-4xl leading-[1.2] font-medium tracking-tight text-transparent sm:text-5xl lg:text-[3.35rem]"
               >
                 {t.features[featureIndex].title}
               </h1>
@@ -696,19 +958,9 @@ export default function Home() {
                 onMouseEnter={(e) => magnetEnter(e, 1.05)}
                 onMouseMove={(e) => magnetMove(e, 0.35)}
                 onMouseLeave={(e) => magnetLeave(e)}
-                className="inline-flex items-center rounded-full bg-slate-900 px-8 py-4 text-base font-medium text-white shadow-xl shadow-violet-900/10"
+                className="inline-flex items-center rounded-full bg-white px-8 py-4 text-base font-medium text-violet-600 shadow-md ring-1 ring-violet-200"
               >
                 {t.cta}
-              </a>
-              <a
-                href="#iletisim"
-                onMouseEnter={(e) => magnetEnter(e, 1.1)}
-                onMouseMove={(e) => magnetMove(e, 0.4)}
-                onMouseLeave={(e) => magnetLeave(e)}
-                aria-label={t.cta}
-                className="flex h-14 w-14 items-center justify-center rounded-full bg-white text-slate-900 shadow-md ring-1 ring-slate-200"
-              >
-                <ArrowRight className="h-5 w-5" />
               </a>
             </div>
 
@@ -759,14 +1011,6 @@ export default function Home() {
                 </span>
               </div>
             </div>
-
-            {/* Yüzen istatistik rozeti */}
-            <div className="hero-left-item absolute -bottom-3 left-1/2 flex -translate-x-1/2 items-center gap-2.5 rounded-2xl border border-white/70 bg-white/85 px-5 py-3 shadow-lg shadow-violet-900/10 backdrop-blur-xl sm:left-4 sm:translate-x-0">
-              <span className="font-heading text-xl font-semibold text-violet-600 sm:text-2xl">{t.statValue}</span>
-              <span className="text-[10px] font-medium tracking-wide text-slate-500 uppercase sm:text-xs">
-                {t.statLabel}
-              </span>
-            </div>
           </div>
         </div>
 
@@ -792,8 +1036,8 @@ export default function Home() {
         </div>
       </div>
 
-      {/* ---------- Hikaye: çark bölümü ---------- */}
-      <section id="hikaye" className="gear-pin relative z-10 h-screen overflow-hidden">
+      {/* ---------- Hikaye: kart yığını grid'e açılıyor ---------- */}
+      <section id="hikaye" className="story-pin relative z-10 flex min-h-screen scroll-mt-28 items-center overflow-hidden py-28">
         {/* Açık lila zemin */}
         <div
           aria-hidden
@@ -811,61 +1055,82 @@ export default function Home() {
           aria-hidden
           className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(rgba(139,92,246,0.08)_1px,transparent_1px)] [background-size:28px_28px]"
         />
-        {/* Ortadaki ayraç çizgisi */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute top-0 bottom-0 left-1/2 hidden w-px -translate-x-1/2 bg-gradient-to-b from-transparent via-violet-300/50 to-transparent md:block"
-        />
 
-        <div className="absolute top-16 left-1/2 -translate-x-1/2 text-sm font-medium tracking-[0.35em] text-violet-600 uppercase">
-          {t.storyKicker}
-        </div>
-
-        <div className="mx-auto grid h-full max-w-6xl grid-cols-1 px-6 md:grid-cols-2 md:gap-10">
-          {/* Sol: dairesel görseller — normal yönde (aşağı) kayar */}
-          <div className="gear-track-left relative hidden h-screen md:block">
-            {t.gearSteps.map((step, i) => (
-              <div
-                key={`left-${lang}-${step.title}`}
-                className="absolute inset-x-0 flex h-full items-center justify-center"
-                style={{ top: `${i * 100}%` }}
-              >
-                <span className="gear-circle inline-flex">
-                  <GearVisual step={i} />
-                </span>
-              </div>
-            ))}
+        <div className="mx-auto w-full max-w-5xl px-6">
+          <div className="mb-16 text-center">
+            <span className="text-sm font-medium tracking-[0.35em] text-violet-600 uppercase">{t.storyKicker}</span>
+            <h2 className="mt-4 font-heading text-4xl font-medium tracking-tight sm:text-6xl">{t.storyTitle}</h2>
+            <p className="mt-5 text-lg text-slate-500">{t.storySub}</p>
           </div>
 
-          {/* Sağ: başlık + açıklama — ters yönde (yukarı) kayar */}
-          <div className="gear-track-right relative h-screen">
-            {t.gearSteps.map((step, i) => (
-              <div
-                key={`right-${lang}-${step.title}`}
-                className="absolute inset-x-0 flex h-full flex-col items-center justify-center px-6 text-center md:items-start md:px-4 md:text-left"
-                style={{ top: `${(GEAR_STEPS_COUNT - 1 - i) * 100}%` }}
-              >
-                <span className="mb-5 flex justify-center md:hidden">
-                  <GearVisual step={i} />
+          <div className="story-grid grid grid-cols-2 gap-x-8 gap-y-16 sm:gap-x-12 lg:grid-cols-3 lg:gap-x-10">
+            {t.storyCards.map((card) => (
+              <div key={card.id} className="story-cell flex flex-col items-center text-center">
+                <span className="story-card-circle relative flex h-32 w-32 items-center justify-center overflow-hidden rounded-full shadow-xl shadow-violet-500/15 ring-1 ring-white/70 sm:h-40 sm:w-40 lg:h-44 lg:w-44">
+                  <Image
+                    src={STORY_PHOTO_SRC[card.id]}
+                    alt={card.title}
+                    fill
+                    sizes="176px"
+                    className="object-cover"
+                    style={{
+                      objectPosition: STORY_PHOTO_POSITION[card.id] ?? "center",
+                      transform: `scale(${STORY_PHOTO_SCALE[card.id] ?? 1})`,
+                    }}
+                  />
                 </span>
-                <span className="mb-4 text-xs font-semibold tracking-[0.3em] text-violet-500 uppercase">
-                  {String(i + 1).padStart(2, "0")} / {String(GEAR_STEPS_COUNT).padStart(2, "0")}
-                </span>
-                <h2 className="max-w-lg text-balance font-heading text-4xl font-medium tracking-tight sm:text-5xl lg:text-6xl">
-                  {step.title}
-                </h2>
-                <p className="mt-6 max-w-md text-balance text-lg leading-relaxed text-slate-500">{step.desc}</p>
-                <div className="mt-9 flex justify-center gap-2.5 md:justify-start">
-                  {t.gearSteps.map((_, dot) => (
-                    <span
-                      key={dot}
-                      className={`h-1.5 rounded-full transition-all ${dot === i ? "w-8 bg-violet-500" : "w-1.5 bg-slate-300"}`}
-                    />
-                  ))}
+                <div className="story-caption mt-6">
+                  <h3 className="text-lg font-semibold text-slate-800 sm:text-xl">{card.title}</h3>
+                  <p className="mx-auto mt-2 max-w-[15rem] text-sm leading-relaxed text-slate-500">{card.desc}</p>
                 </div>
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* ---------- Neler Sunuyoruz: hizmetler + kanal şeridi ---------- */}
+      <section id="hizmetler" className="relative z-10 mx-auto max-w-6xl scroll-mt-28 px-6 py-28">
+        <div className="reveal-block mb-14 text-center">
+          <span className="text-sm font-medium tracking-[0.35em] text-violet-600 uppercase">
+            {t.servicesKicker}
+          </span>
+          <h2 className="mt-4 font-heading text-4xl font-medium tracking-tight sm:text-6xl">
+            {t.servicesTitle}{" "}
+            <span className="bg-gradient-to-r from-violet-600 to-cyan-500 bg-clip-text text-transparent">
+              {t.servicesTitleAccent}
+            </span>
+          </h2>
+          <p className="mt-5 text-lg text-slate-500">{t.servicesSub}</p>
+        </div>
+
+        {/* Kanal şeridi */}
+        <div className="card-grid mb-16 flex flex-wrap items-center justify-center gap-3">
+          {CHANNEL_STACK.map(({ id, icon: Icon }) => (
+            <span
+              key={id}
+              className="stagger-card inline-flex items-center gap-2.5 rounded-full border border-slate-200/80 bg-white/70 px-5 py-2.5 text-sm font-medium text-slate-600 shadow-sm shadow-violet-500/5 backdrop-blur-md"
+            >
+              <Icon className="h-4 w-4 text-violet-500" strokeWidth={1.6} />
+              {t.channelStack[id]}
+            </span>
+          ))}
+        </div>
+
+        {/* Hizmet kartları */}
+        <div className="card-grid grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {SERVICE_LIST.map(({ id, icon: Icon }) => (
+            <div
+              key={id}
+              className="stagger-card rounded-3xl border border-slate-200/80 bg-white/60 p-7 shadow-sm shadow-violet-500/5 backdrop-blur-md transition-colors duration-300 hover:border-violet-300/70 hover:bg-white/90"
+            >
+              <span className="mb-5 flex h-12 w-12 items-center justify-center rounded-2xl border border-slate-200/80 bg-gradient-to-br from-violet-50 to-cyan-50">
+                <Icon className="h-6 w-6 text-violet-600" strokeWidth={1.5} />
+              </span>
+              <h3 className="text-lg font-semibold text-slate-800">{t.services[id].title}</h3>
+              <p className="mt-2.5 text-sm leading-relaxed text-slate-500">{t.services[id].desc}</p>
+            </div>
+          ))}
         </div>
       </section>
 
@@ -878,7 +1143,7 @@ export default function Home() {
       </section>
 
       {/* ---------- Sektörler ---------- */}
-      <section id="sektorler" className="relative z-10 mx-auto max-w-6xl px-6 pb-36">
+      <section id="sektorler" className="relative z-10 mx-auto max-w-6xl scroll-mt-28 px-6 pb-36">
         <div className="reveal-block mb-16 text-center">
           <h2 className="font-heading text-4xl font-medium tracking-tight sm:text-6xl">
             {t.sectorsTitle}{" "}
@@ -962,8 +1227,128 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ---------- Pricing ---------- */}
+      <section id="fiyatlandirma" className="relative z-10 mx-auto max-w-6xl scroll-mt-28 px-6 pb-28">
+        <div className="reveal-block mb-6 text-center">
+          <span className="text-sm font-medium tracking-[0.35em] text-violet-600 uppercase">{t.pricingKicker}</span>
+          <h2 className="mt-4 font-heading text-4xl font-medium tracking-tight sm:text-6xl">
+            {t.pricingTitle}{" "}
+            <span className="bg-gradient-to-r from-violet-600 to-cyan-500 bg-clip-text text-transparent">
+              {t.pricingTitleAccent}
+            </span>
+          </h2>
+          <p className="mt-5 text-lg text-slate-500">{t.pricingSub}</p>
+        </div>
+
+        {/* Nasıl başlarsınız: 3 adım */}
+        <div className="card-grid mb-16 grid grid-cols-1 gap-5 sm:grid-cols-3">
+          {t.howItWorks.map((step, i) => (
+            <div
+              key={step.title}
+              className="stagger-card relative rounded-3xl border border-slate-200/80 bg-white/50 p-6 backdrop-blur-md"
+            >
+              <span className="font-heading text-3xl font-semibold text-violet-200">
+                {String(i + 1).padStart(2, "0")}
+              </span>
+              <h3 className="mt-3 text-base font-semibold text-slate-800">{step.title}</h3>
+              <p className="mt-1.5 text-sm leading-relaxed text-slate-500">{step.desc}</p>
+            </div>
+          ))}
+        </div>
+
+        {/* Fiyat kartları */}
+        <div className="card-grid grid grid-cols-1 gap-6 md:grid-cols-2">
+          {t.pricingPlans.map((plan) => (
+            <div
+              key={plan.name}
+              className={`stagger-card relative flex flex-col rounded-[2rem] border p-9 shadow-sm backdrop-blur-md sm:p-10 ${
+                plan.highlighted
+                  ? "border-violet-300 bg-slate-900 text-white shadow-xl shadow-violet-900/20"
+                  : "border-slate-200/80 bg-white/60 text-slate-900 shadow-violet-500/5"
+              }`}
+            >
+              <h3 className="text-lg font-semibold">{plan.name}</h3>
+              <p className={`mt-2 text-sm leading-relaxed ${plan.highlighted ? "text-slate-300" : "text-slate-500"}`}>
+                {plan.desc}
+              </p>
+              <div className="mt-6 flex items-baseline gap-1.5">
+                <span className="font-heading text-4xl font-semibold sm:text-5xl">{plan.price}</span>
+                {plan.period ? (
+                  <span className={plan.highlighted ? "text-slate-400" : "text-slate-500"}>{plan.period}</span>
+                ) : null}
+              </div>
+              <ul className="mt-7 flex flex-col gap-3 text-sm">
+                {plan.features.map((feature) => (
+                  <li key={feature} className="flex items-center gap-2.5">
+                    <span
+                      className={`h-1.5 w-1.5 shrink-0 rounded-full ${plan.highlighted ? "bg-fuchsia-400" : "bg-violet-500"}`}
+                    />
+                    <span className={plan.highlighted ? "text-slate-200" : "text-slate-600"}>{feature}</span>
+                  </li>
+                ))}
+              </ul>
+              <a
+                href="#iletisim"
+                onMouseEnter={(e) => magnetEnter(e, 1.04)}
+                onMouseMove={(e) => magnetMove(e, 0.35)}
+                onMouseLeave={(e) => magnetLeave(e)}
+                className={`mt-9 inline-flex items-center justify-center gap-2 rounded-full px-7 py-3.5 text-sm font-semibold ${
+                  plan.highlighted
+                    ? "bg-white text-slate-900"
+                    : "bg-slate-900 text-white shadow-lg shadow-violet-900/10"
+                }`}
+              >
+                {plan.cta}
+                <ArrowRight className="h-4 w-4" />
+              </a>
+            </div>
+          ))}
+        </div>
+        <p className="reveal-block mt-8 text-center text-xs text-slate-400">{t.pricingNote}</p>
+      </section>
+
+      {/* ---------- FAQ ---------- */}
+      <section id="sss" className="relative z-10 mx-auto max-w-3xl scroll-mt-28 px-6 pb-28">
+        <div className="reveal-block mb-12 text-center">
+          <span className="text-sm font-medium tracking-[0.35em] text-violet-600 uppercase">{t.faqKicker}</span>
+          <h2 className="mt-4 font-heading text-4xl font-medium tracking-tight sm:text-5xl">{t.faqTitle}</h2>
+        </div>
+
+        <div className="reveal-block flex flex-col gap-3">
+          {t.faqItems.map((item, i) => {
+            const open = openFaq === i;
+            return (
+              <div
+                key={item.q}
+                className="overflow-hidden rounded-2xl border border-slate-200/80 bg-white/60 backdrop-blur-md"
+              >
+                <button
+                  type="button"
+                  onClick={() => setOpenFaq(open ? null : i)}
+                  className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left"
+                >
+                  <span className="text-base font-medium text-slate-800">{item.q}</span>
+                  <ChevronDown
+                    className={`h-5 w-5 shrink-0 text-violet-500 transition-transform duration-300 ${open ? "rotate-180" : ""}`}
+                  />
+                </button>
+                <div
+                  className={`grid transition-all duration-300 ease-out ${
+                    open ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+                  }`}
+                >
+                  <div className="overflow-hidden">
+                    <p className="px-6 pb-5 text-sm leading-relaxed text-slate-500">{item.a}</p>
+                  </div>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </section>
+
       {/* ---------- İletişim ---------- */}
-      <section id="iletisim" className="relative z-10 mx-auto max-w-2xl px-6 pb-36">
+      <section id="iletisim" className="relative z-10 mx-auto max-w-2xl scroll-mt-28 px-6 pb-36">
         <div className="reveal-block rounded-[2.5rem] border border-slate-200/80 bg-white/60 p-10 shadow-xl shadow-violet-500/5 backdrop-blur-xl sm:p-14">
           <div className="mb-10 text-center">
             <h2 className="font-heading text-3xl font-medium tracking-tight sm:text-5xl">{t.formTitle}</h2>
