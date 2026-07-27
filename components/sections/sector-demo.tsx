@@ -265,19 +265,20 @@ export default function SectorDemo() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="group mx-auto mt-8 flex max-w-2xl flex-col items-center justify-between gap-5 rounded-2xl border border-violet-500/25 bg-gradient-to-r from-violet-500/10 to-indigo-500/5 p-6 sm:flex-row"
+              className="group relative mx-auto mt-8 flex max-w-2xl flex-col items-center justify-between gap-5 overflow-hidden rounded-2xl border border-violet-400/40 bg-gradient-to-r from-violet-600 to-indigo-600 p-6 shadow-xl shadow-violet-900/30 sm:flex-row"
             >
-              <div className="flex items-center gap-4">
-                <div className="relative flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-violet-600 to-indigo-600">
-                  <span className="absolute inset-0 -m-1 rounded-full border border-violet-400/50" />
+              <div className="absolute inset-0 opacity-0 blur-xl transition-opacity duration-300 group-hover:opacity-60 bg-gradient-to-r from-violet-500 to-indigo-500" />
+              <div className="relative z-10 flex items-center gap-4">
+                <div className="relative flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-white/15 backdrop-blur-sm">
+                  <span className="absolute inset-0 -m-1 rounded-full border border-white/40" />
                   <Mic className="h-5 w-5 text-white" />
                 </div>
                 <div>
                   <p className="text-base font-bold text-white">Ela ile şimdi canlı konuşun</p>
-                  <p className="text-sm text-gray-400">Yazıya değil, gerçek sesinize cevap versin — mikrofonunuzu açın, deneyin.</p>
+                  <p className="text-sm text-violet-100">Yazıya değil, gerçek sesinize cevap versin — mikrofonunuzu açın, deneyin.</p>
                 </div>
               </div>
-              <span className="inline-flex shrink-0 items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-bold text-[#18131f] transition-transform duration-300 group-hover:scale-105">
+              <span className="relative z-10 inline-flex shrink-0 items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-bold text-[#18131f] transition-transform duration-300 group-hover:scale-105">
                 <Mic className="h-4 w-4" />
                 Canlı Konuş
               </span>
