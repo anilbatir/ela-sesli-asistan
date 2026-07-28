@@ -17,7 +17,7 @@ const benefits = [
     color: '#a78bfa',
   },
   {
-    title: '32 dilde yabancı müşteriye kendi dilinde güven verir',
+    title: '47 dilde yabancı müşteriye kendi dilinde güven verir',
     detail: 'Yabancı müşteriniz İngilizce, Almanca ya da Arapça yazsa da anlar ve aynı dilde cevap verir.',
     color: '#22d3ee',
   },

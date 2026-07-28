@@ -28,7 +28,7 @@ export default function Footer() {
               <span className="font-display text-xl font-bold text-white">Ela</span>
             </a>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-gray-400">
-              İşletmenizin telefon, WhatsApp ve sosyal medya kanallarını yöneten sesli yapay zeka asistanı. 32 dilde, 0.2 saniyede, 7/24.
+              İşletmenizin telefon, WhatsApp ve sosyal medya kanallarını yöneten sesli yapay zeka asistanı. 47 dilde, 0.2 saniyede, 7/24.
             </p>
             <div className="mt-6 flex gap-3">
               {socials.map((social, i) => {

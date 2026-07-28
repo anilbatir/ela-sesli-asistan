@@ -12,7 +12,7 @@ interface Stat {
 
 const stats: Stat[] = [
   { value: 0.2, suffix: ' sn', label: 'Ortalama Yanıt Süresi', decimals: 1 },
-  { value: 32, suffix: '', label: 'Desteklenen Dil' },
+  { value: 47, suffix: '', label: 'Desteklenen Dil' },
   { value: 7, suffix: '/24', label: 'Kesintisiz Hizmet' },
   { value: 100, suffix: '%', label: 'Çağrı Cevaplama Oranı' },
 ];

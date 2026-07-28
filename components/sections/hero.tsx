@@ -19,7 +19,7 @@ const headlines = [
   { line1: 'WhatsApp’ınıza', line2: 'Anında', line3: 'Ela Yanıt Veriyor' },
   { line1: 'Instagram DM’lerinize', line2: '7/24', line3: 'Ela Cevap Veriyor' },
   { line1: 'Müşteri Randevularını', line2: 'Otomatik', line3: 'Ela Oluşturuyor' },
-  { line1: 'Yabancı Müşterilerinizle', line2: '32 Dilde', line3: 'Ela Konuşuyor' },
+  { line1: 'Yabancı Müşterilerinizle', line2: '47 Dilde', line3: 'Ela Konuşuyor' },
 ];
 
 export default function Hero() {
@@ -73,7 +73,7 @@ export default function Hero() {
           </motion.h1>
 
           <motion.p variants={item} className="mt-6 max-w-xl text-lg text-gray-400 md:text-xl">
-            Otellerden restoranlara, inşaat şirketlerinden perakendeye — Ela telefonlara sesli, WhatsApp ve sosyal medyada yazılı cevap verir. 32 dilde, 0.2 saniyede, 7/24.
+            Otellerden restoranlara, inşaat şirketlerinden perakendeye — Ela telefonlara sesli, WhatsApp ve sosyal medyada yazılı cevap verir. 47 dilde, 0.2 saniyede, 7/24.
           </motion.p>
 
           <motion.div variants={item} className="mt-10 flex flex-col items-start gap-4 sm:flex-row sm:items-center">
@@ -93,7 +93,7 @@ export default function Hero() {
           <motion.div variants={item} className="mt-12 flex flex-wrap items-center gap-x-8 gap-y-3">
             {[
               { icon: Zap, label: '0.2 Saniyede Yanıt' },
-              { icon: PhoneCall, label: '32 Dilde Sesli' },
+              { icon: PhoneCall, label: '47 Dilde Sesli' },
               { icon: MessageCircle, label: '7/24 Her Kanalda' },
             ].map((stat) => {
               const Icon = stat.icon;
@@ -151,7 +151,7 @@ export default function Hero() {
               animate={{ y: [0, -8, 0] }}
               transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
             >
-              <p className="text-xs font-bold text-violet-300">32 Dil</p>
+              <p className="text-xs font-bold text-violet-300">47 Dil</p>
               <p className="text-[10px] text-gray-500">EN · TR · DE · AR</p>
             </motion.div>
 

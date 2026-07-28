@@ -23,7 +23,7 @@ const spaceGrotesk = Space_Grotesk({
 
 export const metadata: Metadata = {
   title: "Ela — İşletmenizin Sesli Yapay Zeka Asistanı",
-  description: "Ela, işletmenizin telefon, WhatsApp ve sosyal medya kanallarını 32 dilde, 0.2 saniyede, 7/24 yöneten sesli yapay zeka asistanıdır.",
+  description: "Ela, işletmenizin telefon, WhatsApp ve sosyal medya kanallarını 47 dilde, 0.2 saniyede, 7/24 yöneten sesli yapay zeka asistanıdır.",
 };
 
 export default function RootLayout({
